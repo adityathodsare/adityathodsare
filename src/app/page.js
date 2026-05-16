@@ -71,7 +71,7 @@ export default function Portfolio() {
   if (!mounted) return <Loading />;
 
   return (
-    <div className="min-h-screen bg-[#FFF9EB] text-[#0f0f0f]">
+    <div className="min-h-screen bg-[#FAFAF7] text-[#2D2D2D]">
       <Navbar
         activeSection={activeSection}
         handleNavClick={handleNavClick}

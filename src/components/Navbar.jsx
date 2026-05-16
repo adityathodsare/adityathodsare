@@ -3,20 +3,21 @@
 import { useState, useEffect } from "react";
 import { FiMenu, FiX, FiDownload } from "react-icons/fi";
 import { SITE } from "@/lib/site";
-import { BrutalButton, SocialLinks, cn } from "./ui/BrutalUI";
+import { BrutalButton, cn } from "./ui/BrutalUI";
 
 const NAV = ["home", "about", "experience", "projects", "contact"];
 
-export default function Navbar({
-  activeSection,
-  handleNavClick,
-  scrolled,
-}) {
+export default function Navbar({ activeSection, handleNavClick, scrolled }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     if (mobileMenuOpen) setMobileMenuOpen(false);
   }, [scrolled]);
+
+  useEffect(() => {
+    document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [mobileMenuOpen]);
 
   const handleMobileNavClick = (item) => {
     handleNavClick(item);
@@ -26,20 +27,24 @@ export default function Navbar({
   return (
     <nav
       className={cn(
-        "fixed top-0 z-50 w-full brutal-border border-x-0 border-t-0 transition-all",
-        scrolled ? "bg-[#FFD43B]/95 backdrop-blur-sm py-2" : "bg-[#FFD43B] py-3"
+        "fixed top-0 z-50 w-full transition-all duration-200 border-b-[2.5px] border-[#2D2D2D]",
+        scrolled
+          ? "bg-white/95 backdrop-blur-sm py-2 shadow-md"
+          : "bg-white py-3"
       )}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
+        {/* Logo */}
         <button
           type="button"
           onClick={() => handleNavClick("home")}
-          className="font-display text-lg font-extrabold sm:text-xl"
+          className="font-display text-lg font-extrabold sm:text-xl shrink-0"
         >
           {SITE.name.split(" ")[0]}
-          <span className="text-[#FF8A7A]">.</span>
+          <span className="text-[#C08B3E]">.</span>
         </button>
 
+        {/* Desktop nav */}
         <div className="hidden items-center gap-1 md:flex">
           {NAV.map((item) => (
             <button
@@ -49,8 +54,8 @@ export default function Navbar({
               className={cn(
                 "font-display rounded-lg px-3 py-1.5 text-sm font-bold capitalize transition-all",
                 activeSection === item
-                  ? "brutal-border bg-white brutal-shadow-sm"
-                  : "hover:bg-white/50"
+                  ? "brutal-border bg-[#F0EBE0] brutal-shadow-sm"
+                  : "hover:bg-[#F0EBE0]/60"
               )}
             >
               {item}
@@ -58,63 +63,68 @@ export default function Navbar({
           ))}
         </div>
 
-        <div className="hidden items-center gap-2 md:flex">
-          <SocialLinks size="md" />
+        {/* Desktop resume CTA */}
+        <div className="hidden md:flex shrink-0">
           <BrutalButton
             href={SITE.resumeUrl}
             download={SITE.resumeFilename}
-            variant="secondary"
+            variant="primary"
             className="!px-4 !py-2 text-sm"
           >
-            <FiDownload className="w-4 h-4" />
+            <FiDownload className="w-4 h-4 shrink-0" />
             Resume
           </BrutalButton>
         </div>
 
+        {/* Mobile hamburger */}
         <button
           type="button"
           className="rounded-lg brutal-border bg-white p-2 brutal-shadow-sm md:hidden"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label="Toggle menu"
+          aria-expanded={mobileMenuOpen}
         >
-          {mobileMenuOpen ? (
-            <FiX className="h-6 w-6" />
-          ) : (
-            <FiMenu className="h-6 w-6" />
-          )}
+          {mobileMenuOpen ? <FiX className="h-6 w-6" /> : <FiMenu className="h-6 w-6" />}
         </button>
       </div>
 
+      {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="border-t-[3px] border-black bg-[#FFE566] px-4 py-4 md:hidden">
-          <div className="flex flex-col gap-2">
-            {NAV.map((item) => (
-              <button
-                key={item}
-                type="button"
-                onClick={() => handleMobileNavClick(item)}
-                className={cn(
-                  "font-display rounded-xl brutal-border px-4 py-3 text-left text-base font-bold capitalize",
-                  activeSection === item ? "bg-white brutal-shadow-sm" : "bg-[#FFF4D6]"
-                )}
-              >
-                {item}
-              </button>
-            ))}
-            <div className="mt-2 flex flex-wrap gap-2 border-t-2 border-dashed border-black/30 pt-4">
-              <SocialLinks size="md" showLabels />
+        <>
+          <div
+            className="fixed inset-0 top-[calc(100%)] bg-black/10 md:hidden"
+            onClick={() => setMobileMenuOpen(false)}
+            aria-hidden
+          />
+          <div className="border-t-[2.5px] border-[#2D2D2D] bg-[#FAFAF7] px-4 py-4 md:hidden">
+            <div className="flex flex-col gap-2">
+              {NAV.map((item) => (
+                <button
+                  key={item}
+                  type="button"
+                  onClick={() => handleMobileNavClick(item)}
+                  className={cn(
+                    "font-display rounded-xl brutal-border px-4 py-3 text-left text-base font-bold capitalize transition-all",
+                    activeSection === item ? "bg-[#F0EBE0] brutal-shadow-sm" : "bg-white hover:bg-[#F0EBE0]/40"
+                  )}
+                >
+                  {item}
+                </button>
+              ))}
             </div>
-            <BrutalButton
-              href={SITE.resumeUrl}
-              download={SITE.resumeFilename}
-              variant="coral"
-              className="w-full"
-            >
-              <FiDownload />
-              Download Resume
-            </BrutalButton>
+            <div className="mt-3 pt-3 border-t-2 border-dashed border-[#2D2D2D]/20">
+              <BrutalButton
+                href={SITE.resumeUrl}
+                download={SITE.resumeFilename}
+                variant="primary"
+                className="w-full"
+              >
+                <FiDownload />
+                Download Resume
+              </BrutalButton>
+            </div>
           </div>
-        </div>
+        </>
       )}
     </nav>
   );

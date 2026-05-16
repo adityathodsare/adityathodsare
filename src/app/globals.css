@@ -1,1 +1,126 @@
 @import "tailwindcss";
+
+@theme {
+  --font-display: var(--font-fredoka), "Fredoka", system-ui, sans-serif;
+  --font-body: var(--font-nunito), "Nunito", system-ui, sans-serif;
+  --color-ink: #0f0f0f;
+  --color-cream: #fff4d6;
+  --color-mint: #b8f5d4;
+  --color-lavender: #e4d4ff;
+  --color-peach: #ffd6c9;
+  --color-sky: #c5e8ff;
+  --color-lemon: #ffeb99;
+  --color-coral: #ff8a7a;
+  --color-violet: #a78bfa;
+  --color-sun: #ffd43b;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-ink);
+  background: #fff9eb;
+}
+
+::selection {
+  background: #ffd43b;
+  color: #0f0f0f;
+}
+
+:focus-visible {
+  outline: 3px solid #0f0f0f;
+  outline-offset: 3px;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Neo-brutal shadow stack */
+.brutal-shadow {
+  box-shadow: 5px 5px 0 0 #0f0f0f;
+}
+
+.brutal-shadow-sm {
+  box-shadow: 3px 3px 0 0 #0f0f0f;
+}
+
+.brutal-shadow-lg {
+  box-shadow: 8px 8px 0 0 #0f0f0f;
+}
+
+.brutal-hover:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 0 #0f0f0f;
+}
+
+.brutal-active:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 0 #0f0f0f;
+}
+
+.brutal-border {
+  border: 3px solid #0f0f0f;
+}
+
+.doodle-bg {
+  background-color: var(--section-bg, #fff4d6);
+  background-image: radial-gradient(
+      circle at 12% 18%,
+      rgba(255, 212, 59, 0.45) 0 8px,
+      transparent 8px
+    ),
+    radial-gradient(
+      circle at 88% 12%,
+      rgba(255, 138, 122, 0.4) 0 10px,
+      transparent 10px
+    ),
+    radial-gradient(
+      circle at 78% 82%,
+      rgba(167, 139, 250, 0.35) 0 12px,
+      transparent 12px
+    ),
+    radial-gradient(
+      circle at 8% 78%,
+      rgba(184, 245, 212, 0.55) 0 14px,
+      transparent 14px
+    );
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(-2deg);
+  }
+  50% {
+    transform: rotate(2deg);
+  }
+}
+
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-wiggle {
+  animation: wiggle 4s ease-in-out infinite;
+}
+
+.animate-float-soft {
+  animation: float-soft 5s ease-in-out infinite;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

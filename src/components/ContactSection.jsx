@@ -1,15 +1,18 @@
 "use client";
-import { useState } from "react";
-import {
-  FiMail,
-  FiPhone,
-  FiMapPin,
-  FiLinkedin,
-  FiGithub,
-  FiSend,
-} from "react-icons/fi";
 
-export default function ContactSection({ darkMode }) {
+import { useState } from "react";
+import { FiSend, FiPhone, FiMail, FiMapPin } from "react-icons/fi";
+import { SITE } from "@/lib/site";
+import {
+  BrutalSection,
+  SectionHeader,
+  BrutalCard,
+  BrutalButton,
+  BrutalInput,
+  SocialLinks,
+} from "./ui/BrutalUI";
+
+export default function ContactSection() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -30,7 +33,6 @@ export default function ContactSection({ darkMode }) {
     setSubmitStatus(null);
 
     try {
-      // Basic validation
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
         throw new Error("Please enter a valid email address");
       }
@@ -38,7 +40,6 @@ export default function ContactSection({ darkMode }) {
         throw new Error("Message should be at least 10 characters");
       }
 
-      // Submit to Google Scripts for storage
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 10000);
 
@@ -59,14 +60,13 @@ export default function ContactSection({ darkMode }) {
       }
 
       const result = await response.json();
-
       if (!result.success) {
         throw new Error(result.error || "Submission failed");
       }
 
       setSubmitStatus({
         success: true,
-        message: "Message received successfully!",
+        message: "Message sent — thanks for reaching out!",
       });
       setFormData({ name: "", email: "", subject: "", message: "" });
     } catch (error) {
@@ -83,285 +83,114 @@ export default function ContactSection({ darkMode }) {
     }
   };
 
+  const contactItems = [
+    { icon: FiPhone, label: "Phone", value: SITE.phone },
+    { icon: FiMail, label: "Email", value: SITE.email },
+    { icon: FiMapPin, label: "Location", value: SITE.location },
+  ];
+
   return (
-    <section
-      id="contact"
-      className="py-16 md:py-24 px-6 sm:px-8 lg:px-10 max-w-7xl mx-auto"
-    >
-      {/* Force black text in light mode with !important */}
-      <style jsx>{`
-        .light-mode-text {
-          color: #000 !important;
-        }
-        .light-mode-bg {
-          background-color: #fff !important;
-        }
-      `}</style>
+    <BrutalSection id="contact" bg="#C5E8FF">
+      <SectionHeader
+        eyebrow="Contact"
+        title="Let's build something fun"
+        subtitle="Have a project, internship, or collab in mind? Drop a message!"
+        accent="#74C0FC"
+      />
 
-      <div className="text-center mb-12 md:mb-16">
-        <h2
-          className={`text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r ${
-            darkMode
-              ? "from-emerald-400 to-teal-300"
-              : "from-emerald-600 to-teal-500"
-          } bg-clip-text text-transparent inline-block`}
-        >
-          Get In Touch
-        </h2>
-        <div className="w-20 md:w-24 h-1 mx-auto bg-gradient-to-r from-emerald-400 to-teal-400 mb-6 md:mb-8 rounded-full"></div>
-        <p
-          className={`text-lg md:text-xl max-w-3xl mx-auto ${
-            darkMode ? "text-gray-300" : "light-mode-text"
-          } leading-relaxed`}
-        >
-          Have a project in mind or want to discuss potential opportunities? I'd
-          love to hear from you!
-        </p>
-      </div>
-
-      <div className="flex flex-col-reverse md:grid md:grid-cols-2 gap-8 md:gap-12">
-        {/* Contact Information */}
-        <div className="mt-8 md:mt-0">
-          <div
-            className={`p-6 md:p-8 rounded-2xl shadow-xl ${
-              darkMode ? "bg-gray-800" : "light-mode-bg"
-            }`}
-          >
-            <h3
-              className={`text-xl md:text-2xl font-bold mb-6 ${
-                darkMode ? "text-white" : "light-mode-text"
-              }`}
-            >
-              Contact Information
-            </h3>
-
-            <div className="space-y-4">
-              {[
-                {
-                  icon: <FiPhone className="w-6 h-6" />,
-                  label: "Phone",
-                  text: "+91 8263878470",
-                },
-                {
-                  icon: <FiMail className="w-6 h-6" />,
-                  label: "Email",
-                  text: "thodsareaditya@gmail.com",
-                },
-                {
-                  icon: <FiMapPin className="w-6 h-6" />,
-                  label: "Location",
-                  text: "Pune/Pimpri-Chinchwad Area, India",
-                },
-              ].map((item, index) => (
-                <div key={index} className="flex items-start">
-                  <div
-                    className={`p-3 rounded-xl mr-4 ${
-                      darkMode
-                        ? "bg-emerald-900/30 text-emerald-400"
-                        : "bg-emerald-100 text-emerald-600"
-                    }`}
-                  >
-                    {item.icon}
-                  </div>
-                  <div>
-                    <p
-                      className={`font-medium ${
-                        darkMode ? "text-white" : "light-mode-text"
-                      }`}
-                    >
-                      {item.label}
-                    </p>
-                    <p
-                      className={darkMode ? "text-gray-400" : "light-mode-text"}
-                    >
-                      {item.text}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Social Links Section */}
-            <div className="mt-8">
-              <h4
-                className={`font-medium mb-4 ${
-                  darkMode ? "text-white" : "light-mode-text"
-                }`}
+      <div className="grid gap-8 lg:grid-cols-2 lg:gap-10">
+        <BrutalCard bg="#ffffff" className="p-5 sm:p-6">
+          <h3 className="font-display mb-4 text-xl font-extrabold">
+            Contact info
+          </h3>
+          <ul className="space-y-3">
+            {contactItems.map(({ icon: Icon, label, value }) => (
+              <li
+                key={label}
+                className="flex items-start gap-3 rounded-xl bg-[#E8F4FF] p-3 brutal-border"
               >
-                Connect with me
-              </h4>
-              <div className="flex space-x-4">
-                <a
-                  href="https://www.linkedin.com/in/aditya-thodsare-475366289/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`p-3 rounded-xl transition-all hover:transform hover:-translate-y-1 ${
-                    darkMode
-                      ? "bg-gray-700 hover:bg-emerald-600 text-white hover:shadow-lg hover:shadow-emerald-500/20"
-                      : "bg-gray-200 hover:bg-emerald-600 text-gray-900 hover:text-white hover:shadow-lg hover:shadow-emerald-500/20"
-                  }`}
-                >
-                  <FiLinkedin className="w-6 h-6" />
-                </a>
-                <a
-                  href="https://github.com/adityathodsare"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`p-3 rounded-xl transition-all hover:transform hover:-translate-y-1 ${
-                    darkMode
-                      ? "bg-gray-700 hover:bg-emerald-600 text-white hover:shadow-lg hover:shadow-emerald-500/20"
-                      : "bg-gray-200 hover:bg-emerald-600 text-gray-900 hover:text-white hover:shadow-lg hover:shadow-emerald-500/20"
-                  }`}
-                >
-                  <FiGithub className="w-6 h-6" />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Message Form */}
-        <div>
-          <form
-            onSubmit={handleSubmit}
-            className={`p-6 md:p-8 rounded-2xl shadow-xl ${
-              darkMode ? "bg-gray-800" : "light-mode-bg"
-            }`}
-          >
-            {[
-              {
-                id: "name",
-                label: "Your Name",
-                placeholder: "John Doe",
-                type: "text",
-                value: formData.name,
-                onChange: handleChange,
-              },
-              {
-                id: "email",
-                label: "Email Address",
-                placeholder: "john@example.com",
-                type: "email",
-                value: formData.email,
-                onChange: handleChange,
-              },
-              {
-                id: "subject",
-                label: "Subject",
-                placeholder: "Project Inquiry",
-                type: "text",
-                value: formData.subject,
-                onChange: handleChange,
-              },
-              {
-                id: "message",
-                label: "Your Message",
-                placeholder: "Hello Aditya, I'd like to discuss...",
-                type: "textarea",
-                value: formData.message,
-                onChange: handleChange,
-              },
-            ].map((field) => (
-              <div key={field.id} className="mb-6">
-                <label
-                  htmlFor={field.id}
-                  className={`block text-sm font-medium mb-2 ${
-                    darkMode ? "text-gray-300" : "light-mode-text"
-                  }`}
-                >
-                  {field.label}
-                </label>
-                {field.type === "textarea" ? (
-                  <textarea
-                    id={field.id}
-                    rows="5"
-                    className={`w-full px-4 py-3 rounded-lg border focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all ${
-                      darkMode
-                        ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
-                        : "light-mode-bg border-gray-300 light-mode-text placeholder-gray-400"
-                    }`}
-                    placeholder={field.placeholder}
-                    required
-                    value={field.value}
-                    onChange={field.onChange}
-                  ></textarea>
-                ) : (
-                  <input
-                    type={field.type}
-                    id={field.id}
-                    className={`w-full px-4 py-3 rounded-lg border focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all ${
-                      darkMode
-                        ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
-                        : "light-mode-bg border-gray-300 light-mode-text placeholder-gray-400"
-                    }`}
-                    placeholder={field.placeholder}
-                    required
-                    value={field.value}
-                    onChange={field.onChange}
-                  />
-                )}
-              </div>
+                <span className="rounded-lg bg-[#FFD43B] p-2 brutal-border">
+                  <Icon className="h-5 w-5" />
+                </span>
+                <div>
+                  <p className="font-display text-sm font-extrabold">{label}</p>
+                  <p className="text-sm font-semibold">{value}</p>
+                </div>
+              </li>
             ))}
+          </ul>
+          <div className="mt-6 border-t-2 border-dashed border-black/20 pt-6">
+            <p className="font-display mb-3 text-sm font-extrabold">
+              Connect with me
+            </p>
+            <SocialLinks size="lg" showLabels />
+          </div>
+        </BrutalCard>
 
-            {/* Status message */}
+        <BrutalCard bg="#FFD43B" className="p-5 sm:p-6">
+          <form onSubmit={handleSubmit}>
+            <BrutalInput
+              id="name"
+              label="Your name"
+              placeholder="John Doe"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
+            <BrutalInput
+              id="email"
+              label="Email"
+              type="email"
+              placeholder="you@email.com"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+            <BrutalInput
+              id="subject"
+              label="Subject"
+              placeholder="Project inquiry"
+              value={formData.subject}
+              onChange={handleChange}
+              required
+            />
+            <BrutalInput
+              id="message"
+              label="Message"
+              rows={5}
+              placeholder="Tell me about your idea..."
+              value={formData.message}
+              onChange={handleChange}
+              required
+            />
+
             {submitStatus && (
               <div
-                className={`mb-4 p-3 rounded-lg ${
+                className={`mb-4 rounded-xl brutal-border p-3 text-sm font-bold ${
                   submitStatus.success
-                    ? darkMode
-                      ? "bg-emerald-900/30 text-emerald-400"
-                      : "bg-emerald-100 text-emerald-700"
-                    : darkMode
-                    ? "bg-red-900/30 text-red-400"
-                    : "bg-red-100 text-red-700"
+                    ? "bg-[#B8F5D4]"
+                    : "bg-[#FFD6C9]"
                 }`}
               >
                 {submitStatus.message}
               </div>
             )}
 
-            <button
+            <BrutalButton
               type="submit"
+              variant="coral"
+              className="w-full"
               disabled={isSubmitting}
-              className={`w-full py-3 px-6 rounded-lg font-medium transition-all transform hover:-translate-y-0.5 flex items-center justify-center ${
-                darkMode
-                  ? "bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/30"
-                  : "bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/30"
-              } ${isSubmitting ? "opacity-70 cursor-not-allowed" : ""}`}
             >
-              {isSubmitting ? (
+              {isSubmitting ? "Sending..." : (
                 <>
-                  <svg
-                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                    ></circle>
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    ></path>
-                  </svg>
-                  Sending...
-                </>
-              ) : (
-                <>
-                  <FiSend className="mr-2" /> Send Message
+                  <FiSend /> Send message
                 </>
               )}
-            </button>
+            </BrutalButton>
           </form>
-        </div>
+        </BrutalCard>
       </div>
-    </section>
+    </BrutalSection>
   );
 }

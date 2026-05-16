@@ -1,294 +1,117 @@
-export default function ExperienceSection({ darkMode }) {
+"use client";
+
+import { FiBriefcase, FiBookOpen } from "react-icons/fi";
+import {
+  BrutalSection,
+  SectionHeader,
+  BrutalCard,
+  BrutalButton,
+} from "./ui/BrutalUI";
+
+const experiences = [
+  {
+    type: "work",
+    title: "QA Engineer Trainee",
+    company: "Testrig Technologies Pvt Ltd",
+    period: "Jan 2026 – Present",
+    color: "#FFD6C9",
+    iconBg: "#FF8A7A",
+    highlights: [
+      "Automated software testing workflows and improved release confidence across product suites",
+      "Contributed to AI-powered analytics dashboards inspired by Allure — chat with test data via an integrated chatbot",
+      "Built visualizations for build trend analysis, run summaries, and actionable quality insights",
+      "Gained hands-on experience with Jenkins and end-to-end CI/CD pipeline design and maintenance",
+    ],
+  },
+  {
+    type: "work",
+    title: "Java Full Stack Developer Intern",
+    company: "Shorat Innovations Pvt Ltd",
+    period: "Jan 2025 – Feb 2025",
+    color: "#C5E8FF",
+    iconBg: "#74C0FC",
+    highlights: [
+      "Developed a content distribution platform using Spring Boot and React with real-time features via WebSockets",
+      "Implemented Spring Security for robust authentication and authorization of REST APIs",
+      "Built React-based course distribution interfaces with optimized data fetching and state management",
+      "Designed and optimized backend architectures for seamless frontend integration",
+    ],
+  },
+  {
+    type: "education",
+    title: "Bachelor of Engineering",
+    company: "Electronics & Telecommunication · CGPA 9.25/10",
+    period: "2022 – 2026",
+    color: "#E4D4FF",
+    iconBg: "#A78BFA",
+    highlights: [
+      "Coursework in IoT, embedded systems, and modern web technologies",
+      "Participated in hackathons and technical competitions",
+    ],
+  },
+];
+
+export default function ExperienceSection() {
   return (
-    <section
-      id="experience"
-      className={`py-16 md:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto ${
-        darkMode ? "bg-gray-900" : "bg-gray-50"
-      }`}
-    >
-      <div className="text-center mb-12 md:mb-16">
-        <h2
-          className={`text-3xl sm:text-4xl font-bold mb-3 sm:mb-4 bg-gradient-to-r ${
-            darkMode
-              ? "from-emerald-400 to-teal-300"
-              : "from-emerald-600 to-teal-600"
-          } bg-clip-text text-transparent inline-block`}
-        >
-          Professional Journey
-        </h2>
-        <div
-          className={`w-20 sm:w-24 h-1 mx-auto bg-gradient-to-r ${
-            darkMode
-              ? "from-emerald-400 to-teal-400"
-              : "from-emerald-500 to-teal-500"
-          } mb-6 sm:mb-8 rounded-full`}
-        ></div>
-        <p
-          className={`text-lg sm:text-xl max-w-3xl mx-auto ${
-            darkMode ? "text-gray-300" : "text-gray-700"
-          } leading-relaxed`}
-        >
-          My career path and the valuable experiences I've gained along the way
-        </p>
-      </div>
+    <BrutalSection id="experience" bg="#E4D4FF">
+      <SectionHeader
+        eyebrow="Career"
+        title="Professional Journey"
+        subtitle="From full-stack internships to test automation & AI quality dashboards"
+        accent="#A78BFA"
+      />
 
-      <div className="relative">
-        {/* Timeline line */}
-        <div
-          className={`hidden md:block absolute left-6 md:left-1/2 h-full w-0.5 transform -translate-x-1/2 ${
-            darkMode ? "bg-gray-700" : "bg-gray-300"
-          }`}
-        ></div>
-
-        {/* Experience items */}
-        <div className="space-y-8 sm:space-y-12">
-          {/* Experience Item 1 */}
-          <div className="relative flex flex-col md:flex-row items-center">
-            <div className="hidden md:block md:w-1/2 pr-8 lg:pr-12"></div>
-            <div className="z-10 flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-emerald-500 text-white absolute left-0 md:left-1/2 transform -translate-x-1/2">
-              <svg
-                className="w-5 h-5 sm:w-6 sm:h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
+      <ul className="mx-auto max-w-3xl space-y-6 sm:space-y-8">
+        {experiences.map((item, index) => {
+          const Icon = item.type === "education" ? FiBookOpen : FiBriefcase;
+          return (
+            <li key={index} className="relative pl-14 sm:pl-16">
+              <span
+                className="absolute left-0 top-5 flex h-10 w-10 items-center justify-center rounded-xl brutal-border brutal-shadow-sm sm:h-11 sm:w-11"
+                style={{ backgroundColor: item.iconBg }}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                ></path>
-              </svg>
-            </div>
-            <div className="md:w-1/2 md:pl-8 lg:pl-12 mt-6 md:mt-0">
+                <Icon className="h-5 w-5" />
+              </span>
               <div
-                className={`p-6 sm:p-8 rounded-xl sm:rounded-2xl shadow-lg sm:shadow-xl transition-all hover:shadow-2xl ${
-                  darkMode
-                    ? "bg-gray-800 hover:bg-gray-750"
-                    : "bg-white hover:bg-gray-100 border border-gray-200"
-                }`}
-              >
-                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2 gap-2 sm:gap-0">
+                className="absolute left-[1.35rem] top-16 bottom-0 w-0.5 bg-[#0f0f0f]/20 sm:left-[1.6rem]"
+                aria-hidden
+              />
+              <BrutalCard bg={item.color} className="p-5 sm:p-6">
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
                   <div>
-                    <h3
-                      className={`text-lg sm:text-xl font-bold ${
-                        darkMode ? "text-white" : "text-gray-800"
-                      }`}
-                    >
-                      Java Full Stack Developer Intern
+                    <h3 className="font-display text-lg font-extrabold sm:text-xl">
+                      {item.title}
                     </h3>
-                    <p
-                      className={`text-md sm:text-lg ${
-                        darkMode ? "text-emerald-400" : "text-emerald-600"
-                      }`}
-                    >
-                      Shorat Innovations Pvt Ltd
+                    <p className="mt-0.5 text-sm font-bold text-[#0f0f0f]/75">
+                      {item.company}
                     </p>
                   </div>
-                  <div
-                    className={`px-2 py-1 sm:px-3 sm:py-1 rounded-full text-xs font-medium ${
-                      darkMode
-                        ? "bg-emerald-900/40 text-emerald-400"
-                        : "bg-emerald-100 text-emerald-700"
-                    }`}
-                  >
-                    Jan 2025 - Apr 2025
-                  </div>
+                  <span className="font-display w-fit rounded-full brutal-border bg-white px-3 py-1 text-xs font-extrabold">
+                    {item.period}
+                  </span>
                 </div>
-                <ul
-                  className={`mt-4 space-y-2 sm:space-y-3 ${
-                    darkMode ? "text-gray-300" : "text-gray-600"
-                  } text-sm sm:text-base`}
-                >
-                  <li className="flex items-start">
-                    <span
-                      className={`inline-block mr-2 mt-1 flex-shrink-0 w-2 h-2 rounded-full ${
-                        darkMode ? "bg-emerald-400" : "bg-emerald-500"
-                      }`}
-                    ></span>
-                    <span>
-                      Developed a content distribution platform using Spring
-                      Boot and React with real-time features via WebSockets
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span
-                      className={`inline-block mr-2 mt-1 flex-shrink-0 w-2 h-2 rounded-full ${
-                        darkMode ? "bg-emerald-400" : "bg-emerald-500"
-                      }`}
-                    ></span>
-                    <span>
-                      Implemented Spring Security for robust authentication and
-                      authorization of REST APIs
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span
-                      className={`inline-block mr-2 mt-1 flex-shrink-0 w-2 h-2 rounded-full ${
-                        darkMode ? "bg-emerald-400" : "bg-emerald-500"
-                      }`}
-                    ></span>
-                    <span>
-                      Built React-based course distribution interfaces with
-                      optimized data fetching and state management
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span
-                      className={`inline-block mr-2 mt-1 flex-shrink-0 w-2 h-2 rounded-full ${
-                        darkMode ? "bg-emerald-400" : "bg-emerald-500"
-                      }`}
-                    ></span>
-                    <span>
-                      Designed and optimized backend architectures for seamless
-                      frontend integration
-                    </span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          {/* Education */}
-          <div className="relative flex flex-col md:flex-row items-center">
-            <div className="md:w-1/2 pr-8 lg:pr-12 order-2 md:order-1">
-              <div
-                className={`p-6 sm:p-8 rounded-xl sm:rounded-2xl shadow-lg sm:shadow-xl transition-all hover:shadow-2xl ${
-                  darkMode
-                    ? "bg-gray-800 hover:bg-gray-750"
-                    : "bg-white hover:bg-gray-100 border border-gray-200"
-                }`}
-              >
-                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2 gap-2 sm:gap-0">
-                  <div>
-                    <h3
-                      className={`text-lg sm:text-xl font-bold ${
-                        darkMode ? "text-white" : "text-gray-800"
-                      }`}
+                <ul className="mt-4 space-y-2.5">
+                  {item.highlights.map((point, i) => (
+                    <li
+                      key={i}
+                      className="flex gap-2.5 text-sm font-semibold leading-relaxed sm:text-[0.9375rem]"
                     >
-                      Bachelor of Engineering (CGPA: 9.57/10)
-                    </h3>
-                    <p
-                      className={`text-md sm:text-lg ${
-                        darkMode ? "text-emerald-400" : "text-emerald-600"
-                      }`}
-                    >
-                      Electronics and Telecommunication
-                    </p>
-                  </div>
-                  <div
-                    className={`px-2 py-1 sm:px-3 sm:py-1 rounded-full text-xs font-medium ${
-                      darkMode
-                        ? "bg-emerald-900/40 text-emerald-400"
-                        : "bg-emerald-100 text-emerald-700"
-                    }`}
-                  >
-                    2022 - 2026
-                  </div>
-                </div>
-                <ul
-                  className={`mt-4 space-y-2 sm:space-y-3 ${
-                    darkMode ? "text-gray-300" : "text-gray-600"
-                  } text-sm sm:text-base`}
-                >
-                  <li className="flex items-start">
-                    <span
-                      className={`inline-block mr-2 mt-1 flex-shrink-0 w-2 h-2 rounded-full ${
-                        darkMode ? "bg-emerald-400" : "bg-emerald-500"
-                      }`}
-                    ></span>
-                    <span>
-                      Coursework in IoT, embedded systems, and web technologies
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span
-                      className={`inline-block mr-2 mt-1 flex-shrink-0 w-2 h-2 rounded-full ${
-                        darkMode ? "bg-emerald-400" : "bg-emerald-500"
-                      }`}
-                    ></span>
-                    <span>
-                      Participated in multiple hackathons and technical
-                      competitions
-                    </span>
-                  </li>
+                      <span className="mt-1.5 text-lg leading-none">★</span>
+                      <span>{point}</span>
+                    </li>
+                  ))}
                 </ul>
-              </div>
-            </div>
-            <div className="z-10 flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-emerald-500 text-white absolute left-0 md:left-1/2 transform -translate-x-1/2 order-1 md:order-2">
-              <svg
-                className="w-5 h-5 sm:w-6 sm:h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M12 14l9-5-9-5-9 5 9 5z"></path>
-                <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
-                ></path>
-              </svg>
-            </div>
-            <div className="hidden md:block md:w-1/2 pl-8 lg:pl-12 order-3"></div>
-          </div>
-        </div>
+              </BrutalCard>
+            </li>
+          );
+        })}
+      </ul>
 
-        {/* Contact Button with Enhanced Visibility */}
-        <div className="mt-16 md:mt-20 text-center">
-          <a
-            href="#contact"
-            className={`relative inline-flex items-center justify-center px-8 py-3 sm:px-10 sm:py-4 overflow-hidden font-medium rounded-full group ${
-              darkMode ? "text-white" : "text-gray-900"
-            }`}
-          >
-            <span
-              className={`absolute inset-0 w-full h-full transition-all duration-300 ease-out ${
-                darkMode
-                  ? "bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400"
-                  : "bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500"
-              } group-hover:opacity-90 rounded-full`}
-            ></span>
-            <span className="absolute inset-0 w-full h-full rounded-full opacity-5 bg-black"></span>
-            <span className="relative flex items-center text-sm sm:text-base font-semibold">
-              <svg
-                className="w-5 h-5 mr-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
-                ></path>
-              </svg>
-              Send Message
-            </span>
-            <span
-              className={`absolute inset-0 border-2 border-transparent rounded-full group-hover:border-white/30 ${
-                darkMode
-                  ? "group-hover:border-white/30"
-                  : "group-hover:border-gray-300"
-              }`}
-            ></span>
-            {/* Glow effect */}
-            <span
-              className={`absolute -inset-1 opacity-20 blur-md ${
-                darkMode
-                  ? "bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400"
-                  : "bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500"
-              } rounded-full animate-pulse`}
-            ></span>
-          </a>
-        </div>
+      <div className="mt-12 text-center">
+        <BrutalButton href="#contact" variant="violet">
+          Get in touch →
+        </BrutalButton>
       </div>
-    </section>
+    </BrutalSection>
   );
 }

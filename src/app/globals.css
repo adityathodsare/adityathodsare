@@ -1,1 +1,104 @@
 @import "tailwindcss";
+
+@theme {
+  --font-display: var(--font-fredoka), "Fredoka", system-ui, sans-serif;
+  --font-body: var(--font-nunito), "Nunito", system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: #2D2D2D;
+  background: #FAFAF7;
+}
+
+::selection {
+  background: #C08B3E;
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 3px solid #2D2D2D;
+  outline-offset: 3px;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* ── Neo-brutal shadow system ── */
+.brutal-shadow {
+  box-shadow: 4px 4px 0 0 #2D2D2D;
+}
+
+.brutal-shadow-sm {
+  box-shadow: 3px 3px 0 0 #2D2D2D;
+}
+
+.brutal-shadow-lg {
+  box-shadow: 7px 7px 0 0 #2D2D2D;
+}
+
+.brutal-hover {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.brutal-hover:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 0 #2D2D2D;
+}
+
+.brutal-active:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 0 #2D2D2D;
+}
+
+.brutal-border {
+  border: 2.5px solid #2D2D2D;
+}
+
+/* ── Section background ── */
+.doodle-bg {
+  background-color: var(--section-bg, #FAFAF7);
+}
+
+/* ── Animations ── */
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-wiggle {
+  animation: wiggle 4s ease-in-out infinite;
+}
+
+.animate-float-soft {
+  animation: float-soft 5s ease-in-out infinite;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #FAFAF7; }
+::-webkit-scrollbar-thumb { background: #C08B3E; border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: #2D2D2D; }
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar { display: none; }

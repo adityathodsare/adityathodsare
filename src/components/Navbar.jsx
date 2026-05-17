@@ -4,11 +4,15 @@ import { useState, useEffect } from "react";
 import { FiMenu, FiX, FiDownload } from "react-icons/fi";
 import { SITE } from "@/lib/site";
 import { BrutalButton, cn } from "./ui/BrutalUI";
+import dynamic from "next/dynamic";
+
+const ResumeModal = dynamic(() => import("./ResumeModal"), { ssr: false });
 
 const NAV = ["home", "about", "experience", "projects", "contact"];
 
 export default function Navbar({ activeSection, handleNavClick, scrolled }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [resumeOpen, setResumeOpen] = useState(false);
 
   useEffect(() => {
     if (mobileMenuOpen) setMobileMenuOpen(false);
@@ -66,8 +70,7 @@ export default function Navbar({ activeSection, handleNavClick, scrolled }) {
         {/* Desktop resume CTA */}
         <div className="hidden md:flex shrink-0">
           <BrutalButton
-            href={SITE.resumeUrl}
-            download={SITE.resumeFilename}
+            onClick={() => setResumeOpen(true)}
             variant="primary"
             className="!px-4 !py-2 text-sm"
           >
@@ -114,18 +117,22 @@ export default function Navbar({ activeSection, handleNavClick, scrolled }) {
             </div>
             <div className="mt-3 pt-3 border-t-2 border-dashed border-[#2D2D2D]/20">
               <BrutalButton
-                href={SITE.resumeUrl}
-                download={SITE.resumeFilename}
+                onClick={() => {
+                  setResumeOpen(true);
+                  setMobileMenuOpen(false);
+                }}
                 variant="primary"
                 className="w-full"
               >
                 <FiDownload />
-                Download Resume
+                View Resume
               </BrutalButton>
             </div>
           </div>
         </>
       )}
+      {/* Resume Modal */}
+      <ResumeModal isOpen={resumeOpen} onClose={() => setResumeOpen(false)} />
     </nav>
   );
 }

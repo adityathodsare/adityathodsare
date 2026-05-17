@@ -163,7 +163,7 @@ export function Mascot({ className = "" }) {
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-60" />
           <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
         </span>
-        Open to work
+        Let's Build Together
       </div>
     </div>
   );

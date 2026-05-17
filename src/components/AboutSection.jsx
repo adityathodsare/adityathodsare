@@ -47,7 +47,7 @@ export default function AboutSection() {
         >
           <BrutalCard bg="#F0EBE0" tilt className="p-3 sm:p-4">
             <div className="relative aspect-square overflow-hidden rounded-xl brutal-border">
-              <Image src="/1.png" alt="Aditya Thodsare" fill priority
+              <Image src="/2.jpg" alt="Aditya Thodsare" fill priority
                 sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover object-top" />
             </div>
           </BrutalCard>

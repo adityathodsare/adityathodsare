@@ -6,6 +6,6 @@ export const SITE = {
   location: "Pune / Pimpri-Chinchwad, India",
   github: "https://github.com/adityathodsare",
   linkedin: "https://www.linkedin.com/in/aditya-thodsare-475366289/",
-  resumeUrl: "/resume.pdf",
+  resumeUrl: "/aditya_resume_web (1).pdf",
   resumeFilename: "Aditya_Thodsare_Resume.pdf",
 };

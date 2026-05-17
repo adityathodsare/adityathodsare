@@ -24,14 +24,23 @@ export default function ContactSection() {
       if (formData.message.trim().length < 10) throw new Error("Message should be at least 10 characters");
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 10000);
-      const response = await fetch(
+
+      // Google Apps Script redirects (302) after POST, which breaks standard
+      // CORS fetch. Using "no-cors" mode avoids the preflight and follows the
+      // redirect silently. The trade-off is we get an opaque response (can't
+      // read status/body), so we treat any non-thrown fetch as success.
+      await fetch(
         "https://script.google.com/macros/s/AKfycbw9rRdEcA1Y5DYmsxaD_UT6SIq3M1_M7CA71Ct7qGpNFHB8vNXjQQynv-QNSRZBKgqe/exec",
-        { method: "POST", headers: { "Content-Type": "text/plain" }, body: JSON.stringify(formData), signal: controller.signal }
+        {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "text/plain" },
+          body: JSON.stringify(formData),
+          signal: controller.signal,
+        }
       );
       clearTimeout(timeout);
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-      const result = await response.json();
-      if (!result.success) throw new Error(result.error || "Submission failed");
+
       setSubmitStatus({ success: true, message: "Message sent — thanks for reaching out!" });
       setFormData({ name: "", email: "", subject: "", message: "" });
     } catch (error) {

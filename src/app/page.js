@@ -9,6 +9,7 @@ import ProjectsSection from "../components/ProjectsSection";
 import ContactSection from "../components/ContactSection";
 import Footer from "../components/Footer";
 import Loading from "../components/Loading";
+import FloatingSocials from "../components/FloatingSocials";
 
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState("home");
@@ -77,6 +78,8 @@ export default function Portfolio() {
         handleNavClick={handleNavClick}
         scrolled={scrolled}
       />
+
+      <FloatingSocials />
 
       <main>
         <HeroSection handleNavClick={handleNavClick} />

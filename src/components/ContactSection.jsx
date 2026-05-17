@@ -30,12 +30,12 @@ export default function ContactSection() {
       // redirect silently. The trade-off is we get an opaque response (can't
       // read status/body), so we treat any non-thrown fetch as success.
       await fetch(
-        "https://script.google.com/macros/s/AKfycbw9rRdEcA1Y5DYmsxaD_UT6SIq3M1_M7CA71Ct7qGpNFHB8vNXjQQynv-QNSRZBKgqe/exec",
+        "https://script.google.com/macros/s/AKfycbzmtY9cGoks519KLsiQV0tFoVcOeU5w2KY0pKMVCD-bkYbSLr5aOdE_aoYQdQ7YMq5Q/exec",
         {
           method: "POST",
           mode: "no-cors",
-          headers: { "Content-Type": "text/plain" },
-          body: JSON.stringify(formData),
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams(formData).toString(),
           signal: controller.signal,
         }
       );

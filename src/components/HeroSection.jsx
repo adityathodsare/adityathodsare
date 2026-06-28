@@ -1,95 +1,126 @@
 "use client";
 
-import { FiArrowDown } from "react-icons/fi";
+import { useEffect, useRef } from "react";
+import { FiDownload } from "react-icons/fi";
 import { SITE } from "@/lib/site";
-import {
-  BrutalButton,
-  Mascot,
-  SocialLinks,
-  BrutalBadge,
-} from "./ui/BrutalUI";
 
 export default function HeroSection({ handleNavClick }) {
+  const revealRef = useRef([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    revealRef.current.forEach((el) => {
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const addToRefs = (el) => {
+    if (el && !revealRef.current.includes(el)) {
+      revealRef.current.push(el);
+    }
+  };
+
   return (
-    <section
-      id="home"
-      className="doodle-bg relative min-h-screen overflow-hidden pt-24 pb-16 sm:pt-28 sm:pb-20 flex items-center"
-      style={{ "--section-bg": "#FAFAF7" }}
-    >
-      {/* Subtle background decor */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
-        <div className="absolute right-[5%] top-20 h-24 w-24 rounded-full bg-[#C08B3E]/15 brutal-border border-[#2D2D2D]/10" />
-        <div className="absolute left-[8%] top-40 h-14 w-14 rotate-12 rounded-2xl bg-[#4A9B5A]/12 brutal-border border-[#2D2D2D]/10" />
-        <div className="absolute bottom-32 right-[20%] h-16 w-16 -rotate-6 rounded-full bg-[#6A80B8]/12 brutal-border border-[#2D2D2D]/10" />
-      </div>
+    <>
+      <section
+        id="home"
+        className="min-h-screen flex flex-col justify-center items-center px-4 pt-20 relative overflow-hidden border-b-4 border-black"
+      >
+        <div className="absolute top-1/3 left-[10%] w-16 h-16 bg-[var(--color-neo-blue)] border-4 border-black brutal-shadow animate-bounce hidden lg:block rotate-12" />
+        <div className="absolute bottom-1/3 right-[10%] w-24 h-24 bg-[var(--color-neo-pink)] rounded-full border-4 border-black brutal-shadow hidden lg:block animate-pulse" />
+        <div className="absolute top-20 right-20 text-9xl opacity-5 font-black select-none pointer-events-none">
+          CODE
+        </div>
 
-      <div className="relative z-10 mx-auto w-full grid max-w-6xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:gap-14">
-        {/* Text content */}
-        <div className="order-2 text-center lg:order-1 lg:text-left">
-          <BrutalBadge color="#E6F0E8">{SITE.tagline}</BrutalBadge>
-
-          <h1 className="font-display mt-5 text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-            Hey! I&apos;m{" "}
-            <span className="relative inline-block">
-              <span className="relative z-10">{SITE.name}</span>
-              <span
-                className="absolute -bottom-1 left-0 right-0 z-0 h-4 bg-[#C08B3E]/30 -rotate-1 sm:h-5"
-                aria-hidden
-              />
+        <div className="relative z-10 text-center max-w-5xl mt-10">
+          <div
+            ref={addToRefs}
+            className="inline-block bg-[var(--color-neo-white)] border-2 border-black px-4 py-1 mb-6 brutal-shadow rotate-[-2deg] reveal"
+          >
+            <span className="font-mono font-bold text-[var(--color-neo-green)] bg-black px-2 mr-2">
+              ●
             </span>
+            <span className="font-mono font-bold">SYSTEM STATUS: ONLINE</span>
+          </div>
+
+          <h1
+            ref={addToRefs}
+            className="text-[13vw] md:text-[9vw] leading-[0.8] font-black uppercase tracking-tighter mb-6 reveal mix-blend-darken font-display"
+          >
+            FULL STACK<br />
+            <span className="text-white text-stroke-black">DEVELOPER</span>
           </h1>
 
-          <p className="mt-5 max-w-xl text-base font-bold leading-relaxed text-[#2D2D2D]/75 sm:text-lg lg:mx-0 mx-auto">
-            I build production-ready apps with{" "}
-            <span className="rounded-md bg-[#E0E8F0] px-1.5 brutal-border border-[#2D2D2D]/20">
-              Spring Boot & React
-            </span>
-            , IoT platforms like{" "}
-            <span className="rounded-md bg-[#F0EBE0] px-1.5 brutal-border border-[#2D2D2D]/20">
-              SAFE-V
-            </span>
-            , and AI test analytics dashboards.
+          <p
+            ref={addToRefs}
+            className="font-mono text-lg md:text-2xl max-w-2xl mx-auto mb-10 bg-[var(--color-neo-yellow)] border-2 border-black p-4 brutal-shadow reveal rotate-1"
+          >
+            I build robust applications that solve real-world problems.
+            <br />
+            <br />
+            From backend microservices using Spring Boot to responsive frontend
+            experiences using React & Next.js. <br />
+            <b>Java • Spring Boot • React • Next.js</b>
           </p>
 
-          {/* Only 2 CTA buttons — clean */}
-          <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row lg:justify-start">
-            <BrutalButton
-              onClick={() => handleNavClick("contact")}
-              variant="primary"
-            >
-              Let&apos;s talk
-            </BrutalButton>
-            <BrutalButton
-              variant="secondary"
+          <div
+            ref={addToRefs}
+            className="flex flex-wrap justify-center gap-4 mb-10 font-mono text-sm font-bold reveal"
+          >
+            <span className="bg-[var(--color-neo-green)] text-black px-3 py-1 border-2 border-black brutal-shadow-sm">
+              ✔ Open to Work
+            </span>
+            <span className="bg-[var(--color-neo-yellow)] text-black px-3 py-1 border-2 border-black brutal-shadow-sm">
+              ✔ Scalable Systems
+            </span>
+            <span className="bg-[var(--color-neo-white)] text-black px-3 py-1 border-2 border-black brutal-shadow-sm">
+              ✔ Cloud & IoT
+            </span>
+          </div>
+
+          <div
+            ref={addToRefs}
+            className="flex flex-col md:flex-row justify-center gap-6 reveal"
+          >
+            <button
               onClick={() => handleNavClick("projects")}
+              className="bg-black text-white border-2 border-black px-10 py-5 text-xl font-bold brutal-shadow hover:bg-[var(--color-neo-green)] hover:text-black hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all cursor-hover font-display"
             >
-              See projects
-            </BrutalButton>
-          </div>
-
-          {/* Social links */}
-          <div className="mt-8 flex justify-center lg:justify-start">
-            <SocialLinks size="lg" showLabels />
+              PROJECT GALLERY
+            </button>
+            <a
+              href="https://drive.google.com/file/d/1hnW7EzFJf2EMgHkgyKrjb6muXX-D7EeR/view"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-[var(--color-neo-white)] text-black border-2 border-black px-10 py-5 text-xl font-bold brutal-shadow hover:bg-[var(--color-neo-pink)] hover:text-black hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all cursor-hover flex items-center justify-center gap-2 font-display"
+            >
+              <FiDownload className="text-2xl" /> DOWNLOAD CV
+            </a>
           </div>
         </div>
+      </section>
 
-        {/* Photo Card */}
-        <div className="order-1 flex justify-center lg:order-2">
-          <Mascot />
+      <div className="border-b-4 border-black bg-[var(--color-neo-blue)] py-3 relative z-20">
+        <div className="marquee-container font-mono font-bold text-2xl text-white">
+          <div className="marquee-content">
+            /// OPEN FOR WORK /// FULL STACK DEVELOPMENT /// SPRING BOOT ///
+            REACT /// MICROSERVICES /// IOT /// SECURE /// OPEN FOR WORK ///
+            FULL STACK DEVELOPMENT ///
+          </div>
         </div>
       </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2">
-        <button
-          type="button"
-          onClick={() => handleNavClick("about")}
-          className="rounded-full brutal-border bg-white p-3 brutal-shadow brutal-hover animate-bounce"
-          aria-label="Scroll to about"
-        >
-          <FiArrowDown className="h-5 w-5" />
-        </button>
-      </div>
-    </section>
+    </>
   );
 }

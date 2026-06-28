@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import HeroSection from "../components/HeroSection";
 import AboutSection from "../components/AboutSection";
 import ExperienceSection from "../components/ExprienceSection";
+import CodingStatsSection from "../components/CodingStatsSection";
 import ProjectsSection from "../components/ProjectsSection";
 import ContactSection from "../components/ContactSection";
 import Footer from "../components/Footer";
@@ -26,7 +27,7 @@ export default function Portfolio() {
   }, []);
 
   const updateActiveSection = useCallback(() => {
-    const sections = ["home", "about", "experience", "projects", "contact"];
+    const sections = ["home", "about", "skills", "experience", "coding-stats", "projects", "contact"];
     const scrollPosition = window.scrollY + window.innerHeight / 3;
 
     for (const section of sections) {
@@ -72,19 +73,20 @@ export default function Portfolio() {
   if (!mounted) return <Loading />;
 
   return (
-    <div className="min-h-screen bg-[#FAFAF7] text-[#2D2D2D]">
+    <div className="min-h-screen">
       <Navbar
         activeSection={activeSection}
         handleNavClick={handleNavClick}
         scrolled={scrolled}
       />
-
+      
       <FloatingSocials />
 
       <main>
         <HeroSection handleNavClick={handleNavClick} />
         <AboutSection />
         <ExperienceSection />
+        <CodingStatsSection />
         <ProjectsSection />
         <ContactSection />
       </main>

@@ -1,8 +1,23 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: var(--font-fredoka), "Fredoka", system-ui, sans-serif;
-  --font-body: var(--font-nunito), "Nunito", system-ui, sans-serif;
+  --font-display: var(--font-space-grotesk), "Space Grotesk", sans-serif;
+  --font-mono: var(--font-jetbrains-mono), "JetBrains Mono", monospace;
+
+  --color-neo-yellow: #FBFF48;
+  --color-neo-pink: #FF70A6;
+  --color-neo-blue: #3B82F6;
+  --color-neo-green: #33FF57;
+  --color-neo-purple: #A855F7;
+  --color-neo-orange: #FF9F1C;
+  --color-neo-red: #FF2A2A;
+  --color-neo-white: #FFFDF5;
+  --color-neo-black: #121212;
+
+  --shadow-hard: 4px 4px 0px 0px #000;
+  --shadow-hard-sm: 2px 2px 0px 0px #000;
+  --shadow-hard-lg: 8px 8px 0px 0px #000;
+  --shadow-hard-xl: 12px 12px 0px 0px #000;
 }
 
 html {
@@ -10,95 +25,89 @@ html {
 }
 
 body {
-  font-family: var(--font-body);
-  color: #2D2D2D;
-  background: #FAFAF7;
+  font-family: var(--font-display);
+  color: var(--color-neo-black);
+  background-color: var(--color-neo-white);
+  background-image:
+    radial-gradient(#000 1px, transparent 1px),
+    linear-gradient(to right, #e5e5e5 1px, transparent 1px),
+    linear-gradient(to bottom, #e5e5e5 1px, transparent 1px);
+  background-size: 40px 40px, 100px 100px, 100px 100px;
+  cursor: none; /* We use a custom cursor */
+}
+
+@media (max-width: 1024px) {
+  body {
+    cursor: auto; /* Fallback for mobile */
+  }
 }
 
 ::selection {
-  background: #C08B3E;
-  color: #fff;
-}
-
-:focus-visible {
-  outline: 3px solid #2D2D2D;
-  outline-offset: 3px;
+  background: var(--color-neo-black);
+  color: var(--color-neo-yellow);
 }
 
 .font-display {
   font-family: var(--font-display);
 }
 
-/* ── Neo-brutal shadow system ── */
-.brutal-shadow {
-  box-shadow: 4px 4px 0 0 #2D2D2D;
+.font-mono {
+  font-family: var(--font-mono);
 }
 
-.brutal-shadow-sm {
-  box-shadow: 3px 3px 0 0 #2D2D2D;
-}
-
-.brutal-shadow-lg {
-  box-shadow: 7px 7px 0 0 #2D2D2D;
-}
-
-.brutal-hover {
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.brutal-hover:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 0 #2D2D2D;
-}
-
-.brutal-active:active {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 0 #2D2D2D;
-}
-
-.brutal-border {
-  border: 2.5px solid #2D2D2D;
-}
-
-/* ── Section background ── */
-.doodle-bg {
-  background-color: var(--section-bg, #FAFAF7);
-}
-
-/* ── Animations ── */
-@keyframes wiggle {
-  0%, 100% { transform: rotate(-2deg); }
-  50% { transform: rotate(2deg); }
-}
-
-@keyframes float-soft {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-.animate-wiggle {
-  animation: wiggle 4s ease-in-out infinite;
-}
-
-.animate-float-soft {
-  animation: float-soft 5s ease-in-out infinite;
-}
-
-.line-clamp-3 {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
+/* Animations */
+.marquee-container {
   overflow: hidden;
 }
 
-/* ── Scrollbar ── */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #FAFAF7; }
-::-webkit-scrollbar-thumb { background: #C08B3E; border-radius: 999px; }
-::-webkit-scrollbar-thumb:hover { background: #2D2D2D; }
-
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+.marquee-content {
+  display: flex;
+  animation: scroll 40s linear infinite;
+  width: max-content;
 }
-.scrollbar-hide::-webkit-scrollbar { display: none; }
+
+.marquee-container:hover .marquee-content {
+  animation-play-state: paused;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Utility classes mapping */
+.brutal-border {
+  border: 2px solid #000;
+}
+.brutal-shadow {
+  box-shadow: var(--shadow-hard);
+}
+.brutal-shadow-sm {
+  box-shadow: var(--shadow-hard-sm);
+}
+.brutal-shadow-lg {
+  box-shadow: var(--shadow-hard-lg);
+}
+.brutal-shadow-xl {
+  box-shadow: var(--shadow-hard-xl);
+}
+
+/* Text Stroke */
+.text-stroke-black {
+  -webkit-text-stroke: 3px black;
+}

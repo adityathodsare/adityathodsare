@@ -168,3 +168,4 @@ export function Mascot({ className = "" }) {
     </div>
   );
 }
+  

@@ -1,95 +1,237 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Image from "next/image";
-import { FiMapPin, FiMail, FiPhone, FiBook } from "react-icons/fi";
-import { FaReact, FaJava, FaDocker } from "react-icons/fa";
-import { SiSpringboot, SiNextdotjs, SiMongodb, SiMysql, SiJenkins } from "react-icons/si";
-import { motion } from "framer-motion";
-import { SITE } from "@/lib/site";
-import { BrutalSection, SectionHeader, BrutalCard, BrutalBadge } from "./ui/BrutalUI";
-
-const skillIcons = {
-  "Spring Boot": <SiSpringboot className="text-emerald-700" />,
-  Java: <FaJava className="text-red-700" />,
-  "React.js": <FaReact className="text-sky-700" />,
-  "Next.js": <SiNextdotjs />,
-  Jenkins: <SiJenkins className="text-rose-700" />,
-  "CI/CD": <FaDocker className="text-blue-700" />,
-  MySQL: <SiMysql className="text-blue-800" />,
-  MongoDB: <SiMongodb className="text-green-700" />,
-};
-
-const details = [
-  { icon: FiMapPin, title: "Location", content: SITE.location },
-  { icon: FiMail, title: "Email", content: SITE.email },
-  { icon: FiPhone, title: "Phone", content: SITE.phone },
-  { icon: FiBook, title: "Education", content: "B.E. E&TC (2022–2026) · CGPA 9.25/10" },
-];
-
-const skills = ["Spring Boot", "Java", "React.js", "Next.js", "Jenkins", "CI/CD", "MySQL", "MongoDB"];
 
 export default function AboutSection() {
+  const revealRef = useRef([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+          }
+        });
+      },
+      { threshold: 0.1 },
+    );
+
+    revealRef.current.forEach((el) => {
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const addToRefs = (el) => {
+    if (el && !revealRef.current.includes(el)) {
+      revealRef.current.push(el);
+    }
+  };
+
   return (
-    <BrutalSection id="about" bg="#F2F5F3">
-      <SectionHeader
-        eyebrow="About me"
-        title="Who is Aditya?"
-        subtitle="Full stack developer & test automation engineer — I love turning ideas into bold, usable products."
-        accent="#4A9B5A"
-      />
-
-      <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-10">
-        <motion.div
-          initial={{ opacity: 0, rotate: -2 }}
-          whileInView={{ opacity: 1, rotate: -1 }}
-          viewport={{ once: true }}
-          className="relative mx-auto w-full max-w-md"
-        >
-          <BrutalCard bg="#F0EBE0" tilt className="p-3 sm:p-4">
-            <div className="relative aspect-square overflow-hidden rounded-xl brutal-border">
-              <Image src="/2.jpg" alt="Aditya Thodsare" fill priority
-                sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover object-top" />
+    <>
+      <section
+        id="about"
+        className="py-24 px-4 max-w-7xl mx-auto border-x-4 border-black bg-white my-12 brutal-shadow-lg"
+      >
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
+          <div ref={addToRefs} className="md:col-span-4 reveal">
+            <div className="aspect-square bg-gray-200 border-4 border-black relative brutal-shadow overflow-hidden group">
+              <Image
+                src="/2.jpg"
+                alt="Aditya Thodsare"
+                fill
+                className="object-cover object-top transition-all duration-500"
+              />
             </div>
-          </BrutalCard>
-          <BrutalBadge color="#F0EBE0" className="absolute -bottom-3 -right-2 sm:right-4">
-            📍 Pune, India
-          </BrutalBadge>
-        </motion.div>
+          </div>
+          <div
+            ref={addToRefs}
+            className="md:col-span-8 flex flex-col justify-center reveal"
+          >
+            <h2 className="text-6xl font-black uppercase mb-6 font-display">
+              Who am I?
+            </h2>
+            <p className="font-mono text-xl leading-relaxed mb-6">
+              I am a passionate Full Stack Developer focused on building{" "}
+              <span className="bg-[var(--color-neo-yellow)] px-1 border border-black text-black">
+                scalable
+              </span>{" "}
+              and robust applications.
+              <br />
+              <br />
+              I specialize in backend development using Spring Boot and
+              microservices, along with modern frontend technologies like
+              React.js and Next.js.
+              <br />
+              <br />I also build IoT-powered platforms (like SAFE-V)
+              demonstrating real-time monitoring and event-driven architecture.
+            </p>
+            <p className="font-mono text-lg mb-8 text-gray-600 border-l-4 border-[var(--color-neo-purple)] pl-4">
+              {">"} Strong foundation in Java & Spring Boot microservices
+              <br />
+              {">"} Experience building scalable full-stack web applications
+              <br />
+              {">"} Focused on clean UI, performance, and robust backends
+              <br />
+              {">"} IoT enthusiast integrating hardware with the web
+            </p>
 
-        <div className="space-y-6">
-          <BrutalCard bg="#ffffff" className="p-5 sm:p-6">
-            <h3 className="font-display mb-4 text-xl font-extrabold">Personal details</h3>
-            <ul className="space-y-3">
-              {details.map(({ icon: Icon, title, content }) => (
-                <li key={title} className="flex items-start gap-3 rounded-xl bg-[#F8F6F1] p-3 brutal-border">
-                  <span className="shrink-0 rounded-lg bg-[#F0EBE0] p-2 brutal-border">
-                    <Icon className="h-5 w-5" />
-                  </span>
-                  <div className="min-w-0">
-                    <p className="font-display text-sm font-extrabold">{title}</p>
-                    <p className="text-sm font-semibold text-[#2D2D2D]/70 break-words">{content}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </BrutalCard>
-
-          <BrutalCard bg="#ffffff" className="p-5 sm:p-6">
-            <h3 className="font-display mb-4 text-xl font-extrabold">Skills</h3>
-            <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-              {skills.map((skill) => (
-                <div
-                  key={skill}
-                  className="flex items-center gap-2 rounded-xl brutal-border bg-[#F8F6F1] p-2.5 font-display text-xs font-bold sm:text-sm brutal-hover"
-                >
-                  <span className="text-lg shrink-0">{skillIcons[skill]}</span>
-                  <span className="truncate">{skill}</span>
-                </div>
-              ))}
+            <div className="font-mono text-sm bg-[var(--color-neo-green)] border-2 border-black p-3 mb-6 brutal-shadow-sm text-black">
+              <strong>
+                ✔ Proven ability to deliver full-stack solutions
+                <br />✔ Passionate about scalable architecture and test
+                automation
+              </strong>
             </div>
-          </BrutalCard>
+
+            <div className="flex flex-wrap gap-4">
+              <div className="bg-black text-white px-4 py-2 font-mono text-sm border-2 border-transparent">
+                📍 LOCATION: PUNE, INDIA
+              </div>
+              <div className="bg-[var(--color-neo-green)] text-black px-4 py-2 font-mono text-sm border-2 border-black">
+                🟢 STATUS: AVAILABLE
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </BrutalSection>
+      </section>
+
+      <section
+        id="skills"
+        className="py-20 bg-black text-white border-y-4 border-black relative overflow-hidden"
+      >
+        <div
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage:
+              "linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px)",
+            backgroundSize: "40px 40px",
+          }}
+        />
+
+        <div className="max-w-[1400px] mx-auto px-4 relative z-10">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-12 border-b-4 border-white pb-4">
+            <h2 className="text-6xl md:text-8xl font-black uppercase text-white tracking-tighter font-display">
+              TECH<span className="text-[var(--color-neo-green)]">_STACK</span>
+            </h2>
+            <div className="flex items-center gap-2 mb-2 md:mb-4">
+              <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse" />
+              <p className="font-mono text-[var(--color-neo-green)] text-sm font-bold"></p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+            {/* Backend */}
+            <div className="group h-24 border-2 border-white/20 bg-black hover:bg-[var(--color-neo-yellow)] hover:border-black transition-all duration-0 hover:z-10 relative cursor-hover flex flex-col items-center justify-center p-2">
+              <div className="text-[var(--color-neo-green)] group-hover:text-black font-mono text-xs mb-1 opacity-50">
+                {">"}_ BACKEND
+              </div>
+              <div className="text-white group-hover:text-black font-black font-display text-xl uppercase">
+                SPRING BOOT
+              </div>
+            </div>
+
+            <div className="group h-24 border-2 border-white/20 bg-black hover:bg-[var(--color-neo-blue)] hover:border-black transition-all duration-0 hover:z-10 relative cursor-hover flex flex-col items-center justify-center p-2">
+              <div className="text-[var(--color-neo-green)] group-hover:text-black font-mono text-xs mb-1 opacity-50">
+                {">"}_ LANGUAGE
+              </div>
+              <div className="text-white group-hover:text-black font-black font-display text-xl uppercase">
+                JAVA
+              </div>
+            </div>
+
+            <div className="group h-24 border-2 border-white/20 bg-black hover:bg-[var(--color-neo-purple)] hover:border-black transition-all duration-0 hover:z-10 relative cursor-hover flex flex-col items-center justify-center p-2">
+              <div className="text-[var(--color-neo-green)] group-hover:text-black font-mono text-xs mb-1 opacity-50">
+                {">"}_ DATABASE
+              </div>
+              <div className="text-white group-hover:text-black font-black font-display text-xl uppercase">
+                MYSQL
+              </div>
+            </div>
+
+            <div className="group h-24 border-2 border-white/20 bg-black hover:bg-[var(--color-neo-pink)] hover:border-black transition-all duration-0 hover:z-10 relative cursor-hover flex flex-col items-center justify-center p-2">
+              <div className="text-[var(--color-neo-green)] group-hover:text-black font-mono text-xs mb-1 opacity-50">
+                {">"}_ DATABASE
+              </div>
+              <div className="text-white group-hover:text-black font-black font-display text-xl uppercase">
+                MONGODB
+              </div>
+            </div>
+
+            <div className="group h-24 border-2 border-white/20 bg-black hover:bg-[var(--color-neo-green)] hover:border-black transition-all duration-0 hover:z-10 relative cursor-hover flex flex-col items-center justify-center p-2">
+              <div className="text-[var(--color-neo-green)] group-hover:text-black font-mono text-xs mb-1 opacity-50">
+                {">"}_ LIBRARY
+              </div>
+              <div className="text-white group-hover:text-black font-black font-display text-xl uppercase">
+                REACT.JS
+              </div>
+            </div>
+
+            <div className="group h-24 border-2 border-white/20 bg-black hover:bg-white hover:border-black transition-all duration-0 hover:z-10 relative cursor-hover flex flex-col items-center justify-center p-2">
+              <div className="text-[var(--color-neo-green)] group-hover:text-black font-mono text-xs mb-1 opacity-50">
+                {">"}_ FRAMEWORK
+              </div>
+              <div className="text-white group-hover:text-black font-black font-display text-xl uppercase">
+                NEXT.JS
+              </div>
+            </div>
+
+            <div className="group h-24 border-2 border-white/20 bg-black hover:bg-[var(--color-neo-orange)] hover:border-black transition-all duration-0 hover:z-10 relative cursor-hover flex flex-col items-center justify-center p-2">
+              <div className="text-[var(--color-neo-green)] group-hover:text-black font-mono text-xs mb-1 opacity-50">
+                {">"}_ TOOL
+              </div>
+              <div className="text-white group-hover:text-black font-black font-display text-xl uppercase">
+                DOCKER
+              </div>
+            </div>
+
+            <div className="group h-24 border-2 border-white/20 bg-black hover:bg-[var(--color-neo-red)] hover:border-black transition-all duration-0 hover:z-10 relative cursor-hover flex flex-col items-center justify-center p-2">
+              <div className="text-[var(--color-neo-green)] group-hover:text-black font-mono text-xs mb-1 opacity-50">
+                {">"}_ CI/CD
+              </div>
+              <div className="text-white group-hover:text-black font-black font-display text-xl uppercase">
+                JENKINS
+              </div>
+            </div>
+
+            <div className="group h-24 border-2 border-white/20 bg-black hover:bg-[var(--color-neo-blue)] hover:border-black transition-all duration-0 hover:z-10 relative cursor-hover flex flex-col items-center justify-center p-2">
+              <div className="text-[var(--color-neo-green)] group-hover:text-black font-mono text-xs mb-1 opacity-50">
+                {">"}_ SYSTEM
+              </div>
+              <div className="text-white group-hover:text-black font-black font-display text-xl uppercase">
+                LINUX
+              </div>
+            </div>
+
+            <div className="group h-24 border-2 border-white/20 bg-black hover:bg-[var(--color-neo-yellow)] hover:border-black transition-all duration-0 hover:z-10 relative cursor-hover flex flex-col items-center justify-center p-2">
+              <div className="text-[var(--color-neo-green)] group-hover:text-black font-mono text-xs mb-1 opacity-50">
+                {">"}_ HARDWARE
+              </div>
+              <div className="text-white group-hover:text-black font-black font-display text-xl uppercase">
+                IOT / ESP32
+              </div>
+            </div>
+
+            <div className="group h-24 border-2 border-white/20 bg-black hover:bg-[var(--color-neo-pink)] hover:border-black transition-all duration-0 hover:z-10 relative cursor-hover flex flex-col items-center justify-center p-2">
+              <div className="text-[var(--color-neo-green)] group-hover:text-black font-mono text-xs mb-1 opacity-50">
+                {">"}_ HARDWARE
+              </div>
+              <div className="text-white group-hover:text-black font-black font-display text-xl uppercase text-center leading-none">
+                PCB DESIGN
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t-4 border-white mt-8 pt-4 flex justify-between font-mono text-xs text-gray-500">
+            <span>TOTAL_NODES: 10</span>
+            <span>MEMORY_USAGE: 64MB</span>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

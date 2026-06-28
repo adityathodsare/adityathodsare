@@ -1,30 +1,32 @@
-import { Fredoka, Nunito } from "next/font/google";
+import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import CustomCursor from "@/components/CustomCursor";
 
-const fredoka = Fredoka({
-  variable: "--font-fredoka",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
-const nunito = Nunito({
-  variable: "--font-nunito",
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
   subsets: ["latin"],
-  weight: ["400", "600", "700", "800"],
+  weight: ["400", "700", "800"],
 });
 
 export const metadata = {
-  title: "Aditya Thodsare | Portfolio",
+  title: "Aditya Thodsare | Full Stack MERN Developer",
   description:
-    "Full stack developer, IoT enthusiast, and test automation engineer — playful portfolio.",
+    "Full Stack MERN Developer specializing in scalable web applications using React, Node.js, Express, MongoDB, and modern frontend tools.",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${fredoka.variable} ${nunito.variable} antialiased`}
+        className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} antialiased`}
       >
+        <CustomCursor />
         {children}
       </body>
     </html>

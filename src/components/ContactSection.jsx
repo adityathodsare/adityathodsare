@@ -1,14 +1,30 @@
 "use client";
 
-import { useState } from "react";
-import { FiSend, FiPhone, FiMail, FiMapPin } from "react-icons/fi";
+import { useState, useEffect, useRef } from "react";
+import { FiMail, FiMapPin } from "react-icons/fi";
 import { SITE } from "@/lib/site";
-import { BrutalSection, SectionHeader, BrutalCard, BrutalButton, BrutalInput, SocialLinks } from "./ui/BrutalUI";
 
 export default function ContactSection() {
-  const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
+  const [formData, setFormData] = useState({ name: "", email: "", subject: "Project Inquiry", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
+  const revealRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (revealRef.current) observer.observe(revealRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -25,10 +41,6 @@ export default function ContactSection() {
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 10000);
 
-      // Google Apps Script redirects (302) after POST, which breaks standard
-      // CORS fetch. Using "no-cors" mode avoids the preflight and follows the
-      // redirect silently. The trade-off is we get an opaque response (can't
-      // read status/body), so we treat any non-thrown fetch as success.
       await fetch(
         "https://script.google.com/macros/s/AKfycbzmtY9cGoks519KLsiQV0tFoVcOeU5w2KY0pKMVCD-bkYbSLr5aOdE_aoYQdQ7YMq5Q/exec",
         {
@@ -42,7 +54,7 @@ export default function ContactSection() {
       clearTimeout(timeout);
 
       setSubmitStatus({ success: true, message: "Message sent — thanks for reaching out!" });
-      setFormData({ name: "", email: "", subject: "", message: "" });
+      setFormData({ name: "", email: "", subject: "Project Inquiry", message: "" });
     } catch (error) {
       setSubmitStatus({
         success: false,
@@ -53,60 +65,108 @@ export default function ContactSection() {
     }
   };
 
-  const contactItems = [
-    { icon: FiPhone, label: "Phone", value: SITE.phone },
-    { icon: FiMail, label: "Email", value: SITE.email },
-    { icon: FiMapPin, label: "Location", value: SITE.location },
-  ];
-
   return (
-    <BrutalSection id="contact" bg="#F0F3F7">
-      <SectionHeader
-        eyebrow="Contact"
-        title="Let's build something together"
-        subtitle="Have a project, internship, or collab in mind? Drop a message!"
-        accent="#6A80B8"
-      />
+    <section id="contact" className="py-24 px-4 max-w-5xl mx-auto">
+      <div
+        ref={revealRef}
+        className="bg-white border-4 border-black brutal-shadow-xl p-8 md:p-12 relative reveal mt-12"
+      >
+        <div className="absolute -top-10 -left-6 bg-[var(--color-neo-yellow)] border-4 border-black px-6 py-2 brutal-shadow rotate-[-5deg]">
+          <span className="font-black text-2xl font-display">START A PROJECT</span>
+        </div>
 
-      <div className="grid gap-8 lg:grid-cols-2 lg:gap-10">
-        <BrutalCard bg="#ffffff" className="p-5 sm:p-6">
-          <h3 className="font-display mb-4 text-xl font-extrabold">Contact info</h3>
-          <ul className="space-y-3">
-            {contactItems.map(({ icon: Icon, label, value }) => (
-              <li key={label} className="flex items-start gap-3 rounded-xl bg-[#F8F6F1] p-3 brutal-border">
-                <span className="shrink-0 rounded-lg bg-[#F0EBE0] p-2 brutal-border">
-                  <Icon className="h-5 w-5" />
-                </span>
-                <div className="min-w-0">
-                  <p className="font-display text-sm font-extrabold">{label}</p>
-                  <p className="text-sm font-semibold break-words">{value}</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-4">
+          <div>
+            <h2 className="text-6xl font-black uppercase mb-6 leading-[0.85] font-display">
+              Let's<br />Talk<br />Code.
+            </h2>
+            <p className="font-mono text-lg mb-8 text-gray-600">
+              Looking to build a website or hire a developer?
+              <br />
+              <br />
+              I’m available for freelance projects and full-time opportunities.
+              <br />
+              Let’s connect and create something impactful.
+            </p>
+            <div className="space-y-4">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-black text-white flex items-center justify-center border-2 border-black">
+                  <FiMail className="text-xl" />
                 </div>
-              </li>
-            ))}
-          </ul>
-          <div className="mt-6 border-t-2 border-dashed border-[#2D2D2D]/15 pt-6">
-            <p className="font-display mb-3 text-sm font-extrabold">Connect with me</p>
-            <SocialLinks size="lg" showLabels />
+                <a
+                  href={`mailto:${SITE.email}`}
+                  className="text-xl font-bold hover:bg-[var(--color-neo-blue)] transition-colors cursor-hover font-display"
+                >
+                  {SITE.email}
+                </a>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-black text-white flex items-center justify-center border-2 border-black">
+                  <FiMapPin className="text-xl" />
+                </div>
+                <span className="text-xl font-bold font-display">{SITE.location}</span>
+              </div>
+            </div>
           </div>
-        </BrutalCard>
 
-        <BrutalCard bg="#F0EBE0" className="p-5 sm:p-6">
-          <form onSubmit={handleSubmit}>
-            <BrutalInput id="name" label="Your name" placeholder="John Doe" value={formData.name} onChange={handleChange} required />
-            <BrutalInput id="email" label="Email" type="email" placeholder="you@email.com" value={formData.email} onChange={handleChange} required />
-            <BrutalInput id="subject" label="Subject" placeholder="Project inquiry" value={formData.subject} onChange={handleChange} required />
-            <BrutalInput id="message" label="Message" rows={5} placeholder="Tell me about your idea..." value={formData.message} onChange={handleChange} required />
+          <form onSubmit={handleSubmit} className="space-y-6 bg-gray-50 p-6 border-2 border-black">
+            <div className="flex flex-col">
+              <label className="font-mono font-bold mb-1 uppercase text-xs">Identity</label>
+              <input
+                id="name"
+                type="text"
+                placeholder="NAME / COMPANY"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                className="bg-white border-2 border-black p-3 font-bold focus:outline-none focus:bg-[var(--color-neo-yellow)] focus:brutal-shadow-sm transition-all cursor-hover font-display"
+              />
+            </div>
+            <div className="flex flex-col">
+              <label className="font-mono font-bold mb-1 uppercase text-xs">Coordinates</label>
+              <input
+                id="email"
+                type="email"
+                placeholder="EMAIL ADDRESS"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                className="bg-white border-2 border-black p-3 font-bold focus:outline-none focus:bg-[var(--color-neo-yellow)] focus:brutal-shadow-sm transition-all cursor-hover font-display"
+              />
+            </div>
+            <div className="flex flex-col">
+              <label className="font-mono font-bold mb-1 uppercase text-xs">Transmission</label>
+              <textarea
+                id="message"
+                rows="4"
+                placeholder="PROJECT DETAILS..."
+                value={formData.message}
+                onChange={handleChange}
+                required
+                className="bg-white border-2 border-black p-3 font-bold focus:outline-none focus:bg-[var(--color-neo-yellow)] focus:brutal-shadow-sm transition-all resize-none cursor-hover font-display"
+              />
+            </div>
+
             {submitStatus && (
-              <div className={`mb-4 rounded-xl brutal-border p-3 text-sm font-bold ${submitStatus.success ? "bg-[#E6F0E8]" : "bg-[#FAF0EE]"}`}>
+              <div
+                className={`p-3 border-2 border-black font-bold text-sm text-center ${
+                  submitStatus.success ? "bg-[var(--color-neo-green)]" : "bg-[var(--color-neo-red)] text-white"
+                }`}
+              >
                 {submitStatus.message}
               </div>
             )}
-            <BrutalButton type="submit" variant="primary" className="w-full" disabled={isSubmitting}>
-              {isSubmitting ? "Sending..." : (<><FiSend className="shrink-0" /> Send message</>)}
-            </BrutalButton>
+
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full bg-[var(--color-neo-blue)] text-white font-black text-xl py-4 border-2 border-black brutal-shadow hover:bg-black hover:translate-y-1 hover:shadow-none transition-all cursor-hover font-display"
+            >
+              {isSubmitting ? "TRANSMITTING..." : "TRANSMIT DATA"}
+            </button>
           </form>
-        </BrutalCard>
+        </div>
       </div>
-    </BrutalSection>
+    </section>
   );
 }

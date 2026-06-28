@@ -1,114 +1,53 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { FiGithub, FiLinkedin, FiFileText, FiX, FiDownload } from "react-icons/fi";
+import { FiGithub, FiLinkedin, FiFileText, FiMail } from "react-icons/fi";
 import { SITE } from "@/lib/site";
 
-import dynamic from "next/dynamic";
-const ResumeModal = dynamic(() => import("./ResumeModal"), { ssr: false });
-
-/* ──────────────────────────────────────────────
-   Floating Socials — fixed to the right edge
-   with GitHub, LinkedIn, and Resume icons.
-   ────────────────────────────────────────────── */
 export default function FloatingSocials() {
-  const [showResume, setShowResume] = useState(false);
-  const [visible, setVisible] = useState(false);
-
-  // Show after scrolling past the hero fold
-  useEffect(() => {
-    const handleScroll = () => {
-      setVisible(window.scrollY > 300);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const handleOpenResume = useCallback(() => setShowResume(true), []);
-  const handleCloseResume = useCallback(() => setShowResume(false), []);
-
-  const socials = [
-    {
-      label: "GitHub",
-      icon: FiGithub,
-      href: SITE.github,
-      bg: "#2D2D2D",
-      color: "#FFFFFF",
-    },
-    {
-      label: "LinkedIn",
-      icon: FiLinkedin,
-      href: SITE.linkedin,
-      bg: "#0A66C2",
-      color: "#FFFFFF",
-    },
-    {
-      label: "Resume",
-      icon: FiFileText,
-      onClick: handleOpenResume,
-      bg: "#C08B3E",
-      color: "#FFFFFF",
-    },
-  ];
+  const handleScrollToContact = (e) => {
+    e.preventDefault();
+    const contactSection = document.getElementById("contact");
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
-    <>
-      {/* Floating bar — bottom-right corner */}
-      <div
-        className="fixed right-0 bottom-0 z-[100] flex flex-col gap-2 pb-6 pr-4 transition-all duration-500"
-        style={{
-          opacity: visible ? 1 : 0,
-          transform: visible
-            ? "translateX(0) translateY(0)"
-            : "translateX(100%) translateY(0)",
-          pointerEvents: visible ? "auto" : "none",
-        }}
+    <div className="fixed bottom-6 right-6 z-[100] flex flex-col gap-3 pointer-events-none">
+      <a
+        href={SITE.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="w-12 h-12 bg-[var(--color-neo-white)] border-2 border-black flex items-center justify-center text-black brutal-shadow-sm hover:bg-[var(--color-neo-yellow)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all cursor-hover pointer-events-auto"
+        aria-label="GitHub"
       >
-        {socials.map(({ label, icon: Icon, href, onClick, bg, color }) => {
-          const classes =
-            "group relative flex items-center justify-center rounded-xl brutal-border brutal-shadow-sm brutal-hover brutal-active p-3 transition-transform";
-
-          const tooltip = (
-            <span className="pointer-events-none absolute right-full mr-3 whitespace-nowrap rounded-lg brutal-border bg-[#2D2D2D] px-3 py-1.5 font-display text-xs font-bold text-white opacity-0 transition-opacity group-hover:opacity-100">
-              {label}
-            </span>
-          );
-
-          if (href) {
-            return (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={classes}
-                style={{ backgroundColor: bg, color }}
-                aria-label={label}
-              >
-                {tooltip}
-                <Icon className="h-5 w-5" />
-              </a>
-            );
-          }
-
-          return (
-            <button
-              key={label}
-              onClick={onClick}
-              className={classes}
-              style={{ backgroundColor: bg, color }}
-              aria-label={label}
-            >
-              {tooltip}
-              <Icon className="h-5 w-5" />
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Resume modal */}
-      <ResumeModal isOpen={showResume} onClose={handleCloseResume} />
-    </>
+        <FiGithub className="text-2xl" />
+      </a>
+      <a
+        href={SITE.linkedin}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="w-12 h-12 bg-[var(--color-neo-blue)] border-2 border-black flex items-center justify-center text-white brutal-shadow-sm hover:bg-[var(--color-neo-green)] hover:text-black hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all cursor-hover pointer-events-auto"
+        aria-label="LinkedIn"
+      >
+        <FiLinkedin className="text-2xl" />
+      </a>
+      <a
+        href="https://drive.google.com/file/d/1hnW7EzFJf2EMgHkgyKrjb6muXX-D7EeR/view"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="w-12 h-12 bg-[var(--color-neo-pink)] border-2 border-black flex items-center justify-center text-black brutal-shadow-sm hover:bg-[var(--color-neo-white)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all cursor-hover pointer-events-auto"
+        aria-label="Resume"
+      >
+        <FiFileText className="text-2xl" />
+      </a>
+      <button
+        onClick={handleScrollToContact}
+        className="w-12 h-12 bg-black border-2 border-black flex items-center justify-center text-white brutal-shadow-sm hover:bg-[var(--color-neo-orange)] hover:text-black hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all cursor-hover pointer-events-auto"
+        aria-label="Contact"
+      >
+        <FiMail className="text-2xl" />
+      </button>
+    </div>
   );
 }

@@ -7,7 +7,11 @@
 <a href="https://github.com/adityathodsare"><img src="https://img.shields.io/badge/GitHub-Follow-181717?style=for-the-badge&logo=github&logoColor=white" /></a>
 <a href="mailto:thodsareaditya@gmail.com"><img src="https://img.shields.io/badge/Email-Say%20Hi-D14836?style=for-the-badge&logo=gmail&logoColor=white" /></a>
 
-<br/>
+<br/><br/>
+
+<img src="https://komarev.com/ghpvc/?username=adityathodsare&label=Profile%20Views&color=6C1CD1&style=for-the-badge" />
+
+<br/><br/>
 
 <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&duration=3000&pause=1000&color=A855F7&center=true&vCenter=true&width=700&lines=Building+scalable+full-stack+%26+AI-powered+systems;Spring+Boot+%7C+Next.js+%7C+Microservices+%7C+IoT" alt="Typing SVG" />
 
@@ -21,7 +25,6 @@
 name: Aditya Thodsare
 role: Full Stack Developer · AI Engineer
 location: Pune, India
-status: Open to Work
 education: B.E. Electronics & Telecommunication (CGPA 9.25)
 ```
 
@@ -59,18 +62,6 @@ I build scalable full-stack and AI-powered systems — from real-time IoT platfo
 
 ---
 
-### 💼 Experience
-
-**Software Engineer Trainee — QA & AI Automation**, Testrig Technologies Pvt Ltd *(Jan 2026 – Jun 2026)*
-- Built Playwright + TypeScript test automation for healthcare e-commerce and Salesforce
-- Developed an AI KPI dashboard (Next.js, FastAPI, LanceDB, DuckDB, Gemini AI) with chat-with-data and release-readiness insights
-- Set up Grafana + Azurite (Docker) monitoring; contributed to Jenkins CI/CD migration
-
-**Java Developer Intern**, Shorat Innovations Pvt Ltd *(Jan 2025 – Feb 2025)*
-- Worked on Spring Boot backend development and application support
-
----
-
 ### 🚀 Selected Projects
 
 | Project | Description | Stack |
@@ -82,12 +73,9 @@ I build scalable full-stack and AI-powered systems — from real-time IoT platfo
 
 ---
 
-### 🎓 Education & Certifications
+### 🎓 Education
 
 - **B.E. Electronics & Telecommunication**, JSPM's Imperial College of Engineering and Research, Pune (2022–2026) — CGPA 9.25/10
-- Complete Web Development Course — Udemy
-- Spring Framework 6 & Spring Boot 3 with Spring AI — Udemy
-- Docker for Java Developers — Udemy
 
 ---
 
@@ -100,13 +88,24 @@ I build scalable full-stack and AI-powered systems — from real-time IoT platfo
 
 <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=adityathodsare&layout=compact&theme=tokyonight&hide_border=true&bg_color=0D1117" width="50%" />
 
+<br/>
+
+<img src="https://github-profile-trophy.vercel.app/?username=adityathodsare&theme=tokyonight&no-frame=true&row=1&column=6&margin-w=8" width="90%" />
+
+<br/>
+
+<img src="https://raw.githubusercontent.com/adityathodsare/adityathodsare/output/github-contribution-grid-snake-dark.svg" width="100%" />
+
+<img src="https://github-readme-activity-graph.vercel.app/graph?username=adityathodsare&theme=tokyo-night&hide_border=true&bg_color=0D1117&area=true" width="100%"/>
+
 </div>
+
+> The contribution snake animates automatically via a scheduled GitHub Action — see [Platane/snk](https://github.com/Platane/snk) for the one-time workflow setup.
 
 ---
 
 <div align="center">
 
-**Open for freelance & full-time opportunities**
 
 <a href="mailto:thodsareaditya@gmail.com"><img src="https://img.shields.io/badge/-Say%20Hello-6C1CD1?style=for-the-badge&logo=gmail&logoColor=white"/></a>
 <a href="https://linkedin.com/in/adityathodsare"><img src="https://img.shields.io/badge/-Connect%20on%20LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white"/></a>

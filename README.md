@@ -16,7 +16,6 @@
 name: Aditya Thodsare
 role: Full Stack Developer · AI Engineer
 location: Pune, India
-status: Open to Work
 education: B.E. Electronics & Telecommunication (CGPA 9.25)
 ```
 
@@ -83,7 +82,6 @@ I build scalable full-stack and AI-powered systems — from real-time IoT platfo
 
 <div align="center">
 
-**Open for freelance & full-time opportunities**
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:6C1CD1,100:0B0F2C&height=100&section=footer" width="100%"/>
 

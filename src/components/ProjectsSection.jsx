@@ -6,7 +6,7 @@ import { FiGithub } from "react-icons/fi";
 const projects = [
   {
     id: "safev",
-    title: "SAFE-V",
+    title: "SAFE-V.ai",
     description:
       "IoT-powered vehicle safety platform with live location tracking, accident detection, and automated emergency alerts. Full-stack app with real-time dashboards and WebSocket updates.",
     technologies: [

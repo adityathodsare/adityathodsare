@@ -4,9 +4,9 @@ import "./globals.css";
 const sans = Space_Grotesk({ variable: "--font-sans", subsets: ["latin"] });
 const mono = JetBrains_Mono({ variable: "--font-mono", subsets: ["latin"] });
 
-const title = "Aditya Thodsare | Software Engineer — Full-Stack, AI & Cloud";
+const title = "Aditya Thodsare | Full Stack Developer (Java, Spring Boot, Next.js) in Pune";
 const description =
-  "Portfolio of Aditya Thodsare, a software engineer building full-stack applications, AI-powered systems, backend services, test automation, and IoT solutions.";
+  "Aditya Thodsare is a full stack developer in Pune building Java Spring Boot microservices, Next.js apps, AI-powered dashboards and IoT systems.";
 const canonical = "https://adityathodsare.vercel.app/";
 
 export const metadata = {
@@ -27,7 +27,7 @@ export const metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Aditya Thodsare — Software Engineer",
+        alt: "Aditya Thodsare — Full Stack Developer",
       },
     ],
   },

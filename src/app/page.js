@@ -14,14 +14,9 @@ import {
   FaRobot,
   FaRoute,
   FaSearch,
-  FaYoutube,
   FaMapMarkerAlt,
 } from "react-icons/fa";
-import {
-  FiCode,
-  FiExternalLink,
-  FiGlobe,
-} from "react-icons/fi";
+import { FiCode } from "react-icons/fi";
 import {
   SiBitbucket,
   SiCypress,
@@ -46,6 +41,7 @@ import { TbApi } from "react-icons/tb";
 import { PROFILE } from "@/lib/profile";
 import Navbar from "@/components/Navbar";
 import ContactSection from "@/components/ContactSection";
+import ProjectCarousel from "@/components/ProjectCarousel";
 
 const personSchema = {
   "@context": "https://schema.org",
@@ -125,24 +121,6 @@ const technologyIcons = {
   Jira: SiJira,
 };
 
-function LinkIcon({ href }) {
-  if (href.includes("github.com")) return <FaGithub aria-hidden="true" />;
-  if (href.includes("youtu")) return <FaYoutube aria-hidden="true" />;
-  if (href.includes("linkedin.com")) return <FaLinkedin aria-hidden="true" />;
-  if (href.includes("vercel.app") || href.startsWith("https://safev"))
-    return <FiGlobe aria-hidden="true" />;
-  return <FiExternalLink aria-hidden="true" />;
-}
-
-function monthDuration(startDate) {
-  const start = new Date(`${startDate}T00:00:00`);
-  const now = new Date();
-  const months =
-    (now.getFullYear() - start.getFullYear()) * 12 +
-    now.getMonth() -
-    start.getMonth();
-  return `${months} ${months === 1 ? "month" : "months"}`;
-}
 
 export default function Portfolio() {
   return (
@@ -164,6 +142,9 @@ export default function Portfolio() {
           </h1>
           <p className="hero-role">{PROFILE.headline}</p>
           <p className="hero-summary">{PROFILE.summary}</p>
+          {PROFILE.openToRoles && (
+            <p className="hero-badge">Open to internships &amp; full-time roles</p>
+          )}
           <div className="actions">
             <a className="button primary" href="#projects">
               Explore Projects
@@ -222,11 +203,6 @@ export default function Portfolio() {
                 </div>
                 <time>
                   {item.period}
-                  {item.periodStart && (
-                    <span className="duration">
-                      {monthDuration(item.periodStart)}
-                    </span>
-                  )}
                 </time>
               </div>
               <ul>
@@ -241,55 +217,7 @@ export default function Portfolio() {
         {/* ── Projects ── */}
         <section id="projects" className="section-wrap">
           <h2 className="section-title">Projects</h2>
-          <div className="project-grid">
-            {PROFILE.projects.map((project) => (
-              <article className="card project-card" key={project.id}>
-                {project.image && (
-                  <div className="project-img-wrap">
-                    <Image
-                      src={project.image}
-                      alt={project.imageAlt}
-                      width={800}
-                      height={450}
-                      sizes="(max-width: 700px) 100vw, 50vw"
-                      loading="lazy"
-                    />
-                  </div>
-                )}
-                <h3>{project.title}</h3>
-                {project.subtitle && (
-                  <span className="project-subtitle">{project.subtitle}</span>
-                )}
-                <p className="project-problem">{project.problem}</p>
-                <p className="project-desc">{project.contribution}</p>
-                {project.highlights && project.highlights.length > 0 && (
-                  <ul className="project-highlights">
-                    {project.highlights.map((h) => (
-                      <li key={h}>{h}</li>
-                    ))}
-                  </ul>
-                )}
-                <ul className="chips">
-                  {project.stack.map((tech) => (
-                    <li key={tech}>{tech}</li>
-                  ))}
-                </ul>
-                <div className="link-row">
-                  {project.links.map((link) => (
-                    <a
-                      key={link.href}
-                      href={link.href}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <LinkIcon href={link.href} />
-                      {link.label}
-                    </a>
-                  ))}
-                </div>
-              </article>
-            ))}
-          </div>
+          <ProjectCarousel projects={PROFILE.projects} />
         </section>
 
         {/* ── Skills ── */}

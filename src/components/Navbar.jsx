@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 const links = ["about", "experience", "projects", "skills", "education", "contact"];
 
+
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("");

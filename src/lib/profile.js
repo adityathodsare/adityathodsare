@@ -1,7 +1,7 @@
 export const PROFILE = {
   name: "Aditya Thodsare",
   role: "Software Engineer",
-  headline: "Software Engineer | Full-Stack, AI & Cloud Systems",
+  headline: "Software Engineer | AI & Cloud Architecture Designer",
   summary:
     "I build scalable, real-world software solutions by combining full-stack development, AI integration, cloud architecture, IoT, and test automation to solve complex problems.",
   about:
@@ -35,8 +35,8 @@ export const PROFILE = {
       title: "Software Engineer Trainee (AI Automation)",
       company: "Testrig Technologies Pvt. Ltd.",
       location: "Pune, India",
-      periodStart: "2026-01-01",
-      period: "Jan 2026 – Present",
+      periodStart: null,
+      period: "Jan 2026 – Jun 2026",
       details: [
         "Built an AI-powered, RAG-based release-assurance dashboard using Next.js, FastAPI, LanceDB, and DuckDB, enabling teams to explore test results through role-aware answers, charts, and trends.",
         "Designed a reusable data-ingestion layer for sources including Allure reports, spreadsheets, databases, HTTP APIs, and live Playwright or Cypress runs.",
@@ -51,15 +51,16 @@ export const PROFILE = {
       location: "Pune, India",
       period: "Jan 2025 – Feb 2025",
       details: [
-        "Contributed to backend development using Java and Spring Boot.",
-        "Implemented and supported REST API functionality and assisted with troubleshooting and technical documentation.",
+        "Developed backend features in Java and Spring Boot, supporting application workflows and service integrations.",
+        "Implemented and maintained REST API functionality to connect backend services with application features.",
+        "Helped troubleshoot issues and documented API behavior and technical updates for the development team.",
       ],
     },
   ],
   projects: [
     {
       id: "safe-v",
-      title: "SAFE-V",
+      title: "SAFE-V.ai",
       subtitle: "Vehicle Safety Monitoring System",
       problem:
         "Drivers and responders need timely vehicle telemetry and useful alerts when an incident occurs.",
@@ -82,8 +83,8 @@ export const PROFILE = {
         "MySQL",
         "IoT",
       ],
-      image: "/image.png",
-      imageAlt: "SAFE-V telemetry dashboard showing live vehicle sensor data",
+      image: "/safev.jpg",
+      imageAlt: "SAFE-V.ai telemetry dashboard showing live vehicle sensor data",
       links: [
         { label: "Live demo", href: "https://safev.vercel.app" },
         {
@@ -234,7 +235,7 @@ export const PROFILE = {
     institution: "JSPM's Imperial College of Engineering and Research",
     location: "Pune",
     period: "2022–2026",
-    cgpa: "9.10/10",
+    cgpa: "9.25/10",
     earlierEducation: [
       {
         qualification: "Higher Secondary Certificate (HSC), 12th",

@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import { PROFILE } from "@/lib/profile";
-import { FaEnvelope, FaGithub, FaLinkedin, FaMapMarkerAlt } from "react-icons/fa";
+import { FaEnvelope, FaGithub, FaLinkedin, FaMapMarkerAlt, FaPhone } from "react-icons/fa";
 
 export default function ContactSection() {
   const [status, setStatus] = useState("idle"); // idle | sent | error
@@ -48,6 +48,10 @@ export default function ContactSection() {
             <div className="contact-info-item">
               <FaEnvelope aria-hidden="true" />
               <a href={`mailto:${PROFILE.email}`}>{PROFILE.email}</a>
+            </div>
+            <div className="contact-info-item">
+              <FaPhone aria-hidden="true" />
+              <a href={`tel:${PROFILE.phone.replace(/\s/g, "")}`}>{PROFILE.phone}</a>
             </div>
             <div className="contact-info-item">
               <FaGithub aria-hidden="true" />

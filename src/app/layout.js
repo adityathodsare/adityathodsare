@@ -4,8 +4,8 @@ import "./globals.css";
 const sans = Space_Grotesk({ variable: "--font-sans", subsets: ["latin"] });
 const mono = JetBrains_Mono({ variable: "--font-mono", subsets: ["latin"] });
 
-const title = "Aditya Thodsare | Full Stack Developer (Java, Spring Boot, Next.js) in Pune";
-const description = "Aditya Thodsare is a full stack developer in Pune building Java Spring Boot microservices, Next.js apps, AI-powered dashboards and IoT systems.";
+const title = "Aditya Thodsare | Software Engineer | AI and Cloud Architecture in Pune";
+const description = "Aditya Thodsare is a software engineer in Pune building AI-powered products, cloud architecture, Java Spring Boot microservices and Next.js apps.";
 const canonical = "https://adityathodsare.vercel.app/";
 
 export const metadata = {
@@ -14,7 +14,7 @@ export const metadata = {
   description,
   alternates: { canonical },
   robots: { index: true, follow: true },
-  openGraph: { type: "website", locale: "en_IN", url: canonical, title, description, siteName: "Aditya Thodsare", images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Aditya Thodsare — Full Stack Developer" }] },
+  openGraph: { type: "website", locale: "en_IN", url: canonical, title, description, siteName: "Aditya Thodsare", images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Aditya Thodsare — Software Engineer" }] },
   twitter: { card: "summary_large_image", title, description, images: ["/opengraph-image"] },
   icons: { icon: "/favicon.ico", apple: "/apple-icon" },
 };

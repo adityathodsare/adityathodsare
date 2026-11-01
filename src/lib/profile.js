@@ -1,7 +1,7 @@
 export const PROFILE = {
   name: "Aditya Thodsare",
-  role: "Full Stack Developer",
-  headline: "Full Stack Developer | Java, Spring Boot & Next.js",
+  role: "Software Engineer",
+  headline: "Software Engineer | AI and Cloud Architecture",
   summary:
     "I build backend microservices and full-stack products with Java, Spring Boot and Next.js. My work also includes AI-powered analytics dashboards, test automation and IoT systems.",
   about:
@@ -14,8 +14,8 @@ export const PROFILE = {
   linkedin: "https://www.linkedin.com/in/aditya-thodsare-475366289/",
   leetcode: "https://leetcode.com/u/adityathodsare/",
   photoUrl: "/2.jpg",
-  resumeUrl: "/resume.md",
-  resumeFilename: "Aditya_Thodsare_Resume.md",
+  resumeUrl: "/Aditya_Thodsare_Resume-nov26.pdf",
+  resumeFilename: "Aditya_Thodsare_Resume-nov26.pdf",
   canonicalUrl: "https://adityathodsare.vercel.app/",
   education: {
     degree: "B.E. Electronics & Telecommunication",

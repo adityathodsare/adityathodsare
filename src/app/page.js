@@ -13,7 +13,7 @@ const personSchema = {
       "@type": "Person",
       name: PROFILE.name,
       url: PROFILE.canonicalUrl,
-      jobTitle: "Full Stack Developer",
+      jobTitle: PROFILE.role,
       address: { "@type": "PostalAddress", addressLocality: "Pune", addressRegion: "Maharashtra", addressCountry: "India" },
       alumniOf: { "@type": "CollegeOrUniversity", name: PROFILE.education.institution },
       knowsAbout: ["Java", "Spring Boot", "Next.js", "React", "FastAPI", "microservices", "test automation"],

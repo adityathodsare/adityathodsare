@@ -16,6 +16,7 @@ export default function ContactSection() {
   return <section id="contact" className="section-wrap" aria-labelledby="contact-heading">
     <h2 id="contact-heading" className="section-title">Contact</h2>
     <p>Email me at <a href={`mailto:${PROFILE.email}`}>{PROFILE.email}</a></p>
+    <p>Mobile: <a href={`tel:${PROFILE.phone.replace(/\s/g, "")}`}>{PROFILE.phone}</a></p>
     <form className="contact-form" onSubmit={submit}>
       <label htmlFor="contact-name">Name</label><input id="contact-name" name="name" autoComplete="name" required />
       <label htmlFor="contact-email">Email</label><input id="contact-email" name="email" type="email" autoComplete="email" required />

@@ -43,6 +43,8 @@ import Navbar from "@/components/Navbar";
 import ContactSection from "@/components/ContactSection";
 import ExperienceDuration from "@/components/ExperienceDuration";
 import ProjectCarousel from "@/components/ProjectCarousel";
+import ResumeLink from "@/components/ResumeLink";
+import ResumeClickCount from "@/components/ResumeClickCount";
 
 const personSchema = {
   "@context": "https://schema.org",
@@ -150,13 +152,13 @@ export default function Portfolio() {
             <a className="button primary" href="#projects">
               Explore Projects
             </a>
-            <a
+            <ResumeLink
               className="button"
               href={PROFILE.resumeUrl}
               download={PROFILE.resumeFilename}
             >
               Download Resume
-            </a>
+            </ResumeLink>
             <a className="button" href="#contact">
               Contact Me
             </a>
@@ -290,6 +292,7 @@ export default function Portfolio() {
         <p style={{ margin: 0 }}>
           {PROFILE.name} · © {new Date().getFullYear()}
         </p>
+        <ResumeClickCount />
         <nav className="footer-links" aria-label="Footer navigation">
           <a
             href={PROFILE.github}

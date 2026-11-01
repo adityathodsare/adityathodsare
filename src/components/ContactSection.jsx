@@ -5,13 +5,13 @@ import { PROFILE } from "@/lib/profile";
 import { FaEnvelope, FaGithub, FaLinkedin, FaMapMarkerAlt, FaPhone } from "react-icons/fa";
 
 export default function ContactSection() {
-  const [status, setStatus] = useState("idle"); // idle | sent | error
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState("idle"); // idle | sending | sent | error
+  const [statusMessage, setStatusMessage] = useState("");
   const formRef = useRef(null);
 
-  const submit = (event) => {
+  const submit = async (event) => {
     event.preventDefault();
-    if (submitted) return;
+    if (status === "sending") return;
 
     const data = new FormData(event.currentTarget);
     const name = data.get("name")?.toString().trim();
@@ -19,17 +19,58 @@ export default function ContactSection() {
     const message = data.get("message")?.toString().trim();
 
     if (!name || !email || !message) {
+      setStatusMessage("Please fill in all fields before sending.");
       setStatus("error");
       return;
     }
 
-    const subject = `Portfolio contact from ${name}`;
-    const body = `From: ${name} (${email})\n\n${message}`;
-    window.location.href = `mailto:${PROFILE.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setStatusMessage("Please enter a valid email address.");
+      setStatus("error");
+      return;
+    }
 
-    setSubmitted(true);
-    setStatus("sent");
-    formRef.current?.reset();
+    if (message.length < 10) {
+      setStatusMessage("Please write a message with at least 10 characters.");
+      setStatus("error");
+      return;
+    }
+
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 10000);
+    setStatus("sending");
+    setStatusMessage("");
+
+    try {
+      await fetch(
+        "https://script.google.com/macros/s/AKfycbzmtY9cGoks519KLsiQV0tFoVcOeU5w2KY0pKMVCD-bkYbSLr5aOdE_aoYQdQ7YMq5Q/exec",
+        {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({
+            name,
+            email,
+            subject: "Project Inquiry",
+            message,
+          }).toString(),
+          signal: controller.signal,
+        }
+      );
+
+      setStatus("sent");
+      setStatusMessage("Message saved — thanks for reaching out!");
+      formRef.current?.reset();
+    } catch (error) {
+      setStatus("error");
+      setStatusMessage(
+        error.name === "AbortError"
+          ? "Request timed out. Please try again."
+          : "Could not save your message. Please try again."
+      );
+    } finally {
+      clearTimeout(timeout);
+    }
   };
 
   return (
@@ -112,22 +153,18 @@ export default function ContactSection() {
           <button
             className="button primary"
             type="submit"
-            disabled={submitted}
-            aria-disabled={submitted}
+            disabled={status === "sending"}
           >
-            {submitted ? "Email draft opened" : "Open email draft"}
+            {status === "sending" ? "Sending..." : "Send Message"}
           </button>
 
-          {status === "sent" && (
-            <p role="status" aria-live="polite" className="contact-status success">
-              Your email client should open with the draft. You can also write
-              directly to{" "}
-              <a href={`mailto:${PROFILE.email}`}>{PROFILE.email}</a>.
-            </p>
-          )}
-          {status === "error" && (
-            <p role="alert" aria-live="assertive" className="contact-status info">
-              Please fill in all fields before sending.
+          {(status === "sent" || status === "error") && (
+            <p
+              role={status === "error" ? "alert" : "status"}
+              aria-live={status === "error" ? "assertive" : "polite"}
+              className={`contact-status ${status === "sent" ? "success" : "info"}`}
+            >
+              {statusMessage}
             </p>
           )}
         </form>

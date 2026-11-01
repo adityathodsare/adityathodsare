@@ -41,6 +41,7 @@ import { TbApi } from "react-icons/tb";
 import { PROFILE } from "@/lib/profile";
 import Navbar from "@/components/Navbar";
 import ContactSection from "@/components/ContactSection";
+import ExperienceDuration from "@/components/ExperienceDuration";
 import ProjectCarousel from "@/components/ProjectCarousel";
 
 const personSchema = {
@@ -203,6 +204,9 @@ export default function Portfolio() {
                 </div>
                 <time>
                   {item.period}
+                  {item.periodStart && (
+                    <ExperienceDuration startDate={item.periodStart} />
+                  )}
                 </time>
               </div>
               <ul>

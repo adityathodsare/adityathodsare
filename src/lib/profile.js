@@ -35,8 +35,8 @@ export const PROFILE = {
       title: "Software Engineer Trainee (AI Automation)",
       company: "Testrig Technologies Pvt. Ltd.",
       location: "Pune, India",
-      periodStart: null,
-      period: "Jan 2026 – Jun 2026",
+      periodStart: "2026-01-01",
+      period: "Jan 2026 – Present",
       details: [
         "Built an AI-powered, RAG-based release-assurance dashboard using Next.js, FastAPI, LanceDB, and DuckDB, enabling teams to explore test results through role-aware answers, charts, and trends.",
         "Designed a reusable data-ingestion layer for sources including Allure reports, spreadsheets, databases, HTTP APIs, and live Playwright or Cypress runs.",

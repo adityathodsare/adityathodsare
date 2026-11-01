@@ -1,5 +1,6 @@
 import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import FloatingSocials from "@/components/FloatingSocials";
 
 const sans = Space_Grotesk({ variable: "--font-sans", subsets: ["latin"] });
 const mono = JetBrains_Mono({ variable: "--font-mono", subsets: ["latin"] });
@@ -45,7 +46,10 @@ export const viewport = { themeColor: "#101411" };
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${sans.variable} ${mono.variable}`}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <FloatingSocials />
+      </body>
     </html>
   );
 }

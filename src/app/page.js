@@ -1,7 +1,8 @@
 import Image from "next/image";
-import { FaDocker, FaEnvelope, FaGithub, FaJava, FaLinkedin, FaPython, FaReact, FaYoutube } from "react-icons/fa";
-import { FiExternalLink } from "react-icons/fi";
-import { SiFastapi, SiGrafana, SiJenkins, SiJavascript, SiMongodb, SiMysql, SiNextdotjs, SiPostgresql, SiRabbitmq, SiRaspberrypi, SiSpringboot, SiTerraform, SiTypescript } from "react-icons/si";
+import { FaAward, FaBrain, FaCloud, FaCubes, FaDatabase, FaEnvelope, FaExchangeAlt, FaGithub, FaJava, FaLinkedin, FaProjectDiagram, FaRobot, FaRoute, FaSearch, FaSitemap, FaYoutube } from "react-icons/fa";
+import { FiCode, FiExternalLink, FiMousePointer } from "react-icons/fi";
+import { SiBitbucket, SiClaude, SiCypress, SiDocker, SiFastapi, SiGithub, SiGithubactions, SiGrafana, SiJenkins, SiJira, SiMongodb, SiMysql, SiNextdotjs, SiOpenai, SiPostgresql, SiPython, SiRabbitmq, SiReact, SiSpringboot, SiTerraform, SiTypescript } from "react-icons/si";
+import { TbApi } from "react-icons/tb";
 import { PROFILE } from "@/lib/profile";
 import Navbar from "@/components/Navbar";
 import ContactSection from "@/components/ContactSection";
@@ -25,22 +26,42 @@ const personSchema = {
 
 const technologyIcons = {
   Java: FaJava,
-  Python: FaPython,
+  Python: SiPython,
+  SQL: FaDatabase,
   "Spring Boot": SiSpringboot,
   FastAPI: SiFastapi,
+  "REST APIs": TbApi,
+  Microservices: FaCubes,
+  "Event-Driven Architecture": FaProjectDiagram,
+  RabbitMQ: SiRabbitmq,
   "Next.js": SiNextdotjs,
-  React: FaReact,
+  React: SiReact,
   TypeScript: SiTypescript,
-  JavaScript: SiJavascript,
+  RAG: FaSearch,
+  "LLM API integration": FaBrain,
+  MCP: FaExchangeAlt,
+  "Agentic tools": FaRobot,
+  "Claude Code": SiClaude,
+  Cursor: FiMousePointer,
+  Codex: SiOpenai,
   MySQL: SiMysql,
   MongoDB: SiMongodb,
   PostgreSQL: SiPostgresql,
-  RabbitMQ: SiRabbitmq,
-  Docker: FaDocker,
+  Playwright: FaRoute,
+  Cypress: SiCypress,
+  "End-to-End Testing": FaSearch,
+  "Page Object Model": FaSitemap,
+  Allure: FaAward,
+  Git: FiCode,
+  GitHub: SiGithub,
+  Bitbucket: SiBitbucket,
+  "Azure DevOps": FaCloud,
   Jenkins: SiJenkins,
-  Grafana: SiGrafana,
+  Docker: SiDocker,
   Terraform: SiTerraform,
-  "Raspberry Pi": SiRaspberrypi,
+  "CI/CD": FaExchangeAlt,
+  Grafana: SiGrafana,
+  Jira: SiJira,
 };
 
 function ServiceIcon({ href }) {
@@ -105,7 +126,7 @@ export default function Portfolio() {
       <section id="skills" className="section-wrap">
         <h2 className="section-title">Skills</h2>
         <p className="muted">Used in projects and work</p>
-        <div className="skill-grid">{PROFILE.skills.map((group) => <article className="card skill-card" key={group.group}><h3>{group.group}</h3><ul className="skill-list">{group.items.map((skill) => { const Icon = technologyIcons[skill]; return <li key={skill}>{Icon && <Icon aria-hidden="true" />}<span>{skill}</span></li>; })}</ul></article>)}</div>
+          <div className="skill-grid">{PROFILE.skills.map((group) => <article className="card skill-card" key={group.group}><h3>{group.group}</h3><ul className="skill-list">{group.items.map((skill) => { const Icon = technologyIcons[skill] || FiCode; return <li key={skill}><Icon aria-hidden="true" /><span>{skill}</span></li>; })}</ul></article>)}</div>
       </section>
       <ContactSection />
     </main>

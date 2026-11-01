@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { FaAward, FaBrain, FaCloud, FaCubes, FaDatabase, FaEnvelope, FaExchangeAlt, FaGithub, FaJava, FaLinkedin, FaProjectDiagram, FaRobot, FaRoute, FaSearch, FaSitemap, FaYoutube } from "react-icons/fa";
+import { FaAward, FaBrain, FaCloud, FaCubes, FaDatabase, FaEnvelope, FaExchangeAlt, FaGithub, FaJava, FaLinkedin, FaProjectDiagram, FaRobot, FaRoute, FaSearch, FaYoutube } from "react-icons/fa";
 import { FiCode, FiExternalLink, FiMousePointer } from "react-icons/fi";
 import { SiBitbucket, SiClaude, SiCypress, SiDocker, SiFastapi, SiGithub, SiGithubactions, SiGrafana, SiJenkins, SiJira, SiMongodb, SiMysql, SiNextdotjs, SiOpenai, SiPostgresql, SiPython, SiRabbitmq, SiReact, SiSpringboot, SiTerraform, SiTypescript } from "react-icons/si";
 import { TbApi } from "react-icons/tb";
@@ -50,7 +50,6 @@ const technologyIcons = {
   Playwright: FaRoute,
   Cypress: SiCypress,
   "End-to-End Testing": FaSearch,
-  "Page Object Model": FaSitemap,
   Allure: FaAward,
   Git: FiCode,
   GitHub: SiGithub,

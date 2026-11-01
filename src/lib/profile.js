@@ -117,7 +117,7 @@ export const PROFILE = {
     { group: "Frontend", items: ["Next.js", "React"] },
     { group: "AI & LLM", items: ["RAG", "LLM API integration", "MCP", "Agentic tools", "Claude Code", "Cursor", "Codex"] },
     { group: "Databases", items: ["MySQL", "PostgreSQL", "MongoDB"] },
-    { group: "Test Automation", items: ["Playwright", "Cypress", "End-to-End Testing", "Page Object Model", "Allure"] },
+    { group: "Test Automation", items: ["Playwright", "Cypress", "Allure"] },
     { group: "DevOps & Tools", items: ["Git", "GitHub", "Bitbucket", "Azure DevOps", "Jenkins", "Docker", "Terraform", "CI/CD", "Grafana", "Jira"] },
   ],
   needsConfirmation: [

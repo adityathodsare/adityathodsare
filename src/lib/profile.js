@@ -211,6 +211,7 @@ export const PROFILE = {
     {
       group: "Cloud, DevOps & Tools",
       items: [
+        "AWS",
         "Docker",
         "CI/CD",
         "Jenkins",

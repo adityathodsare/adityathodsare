@@ -83,6 +83,7 @@ const personSchema = {
 };
 
 const technologyIcons = {
+  AWS: FaCloud,
   Java: FaJava,
   Python: SiPython,
   TypeScript: SiTypescript,

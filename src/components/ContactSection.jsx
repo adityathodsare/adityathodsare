@@ -14,7 +14,7 @@ export default function ContactSection() {
     setStatus("Your email app should open with the message. You can also write to " + PROFILE.email + ".");
   };
   return <section id="contact" className="section-wrap" aria-labelledby="contact-heading">
-    <p className="section-label">&gt; contact.sh</p><h2 id="contact-heading" className="section-title">Contact</h2>
+    <h2 id="contact-heading" className="section-title">Contact</h2>
     <p>Email me at <a href={`mailto:${PROFILE.email}`}>{PROFILE.email}</a></p>
     <form className="contact-form" onSubmit={submit}>
       <label htmlFor="contact-name">Name</label><input id="contact-name" name="name" autoComplete="name" required />

@@ -1,4 +1,7 @@
 import Image from "next/image";
+import { FaDocker, FaEnvelope, FaGithub, FaJava, FaLinkedin, FaPython, FaReact, FaYoutube } from "react-icons/fa";
+import { FiExternalLink } from "react-icons/fi";
+import { SiFastapi, SiGrafana, SiJenkins, SiJavascript, SiMongodb, SiMysql, SiNextdotjs, SiPostgresql, SiRabbitmq, SiRaspberrypi, SiSpringboot, SiTerraform, SiTypescript } from "react-icons/si";
 import { PROFILE } from "@/lib/profile";
 import Navbar from "@/components/Navbar";
 import ContactSection from "@/components/ContactSection";
@@ -20,13 +23,45 @@ const personSchema = {
   ],
 };
 
+const technologyIcons = {
+  Java: FaJava,
+  Python: FaPython,
+  "Spring Boot": SiSpringboot,
+  FastAPI: SiFastapi,
+  "Next.js": SiNextdotjs,
+  React: FaReact,
+  TypeScript: SiTypescript,
+  JavaScript: SiJavascript,
+  MySQL: SiMysql,
+  MongoDB: SiMongodb,
+  PostgreSQL: SiPostgresql,
+  RabbitMQ: SiRabbitmq,
+  Docker: FaDocker,
+  Jenkins: SiJenkins,
+  Grafana: SiGrafana,
+  Terraform: SiTerraform,
+  "Raspberry Pi": SiRaspberrypi,
+};
+
+function ServiceIcon({ href }) {
+  const Icon = href.includes("github.com") ? FaGithub : href.includes("youtu") ? FaYoutube : href.includes("linkedin.com") ? FaLinkedin : FiExternalLink;
+  return <Icon aria-hidden="true" />;
+}
+
+function monthDuration(startDate) {
+  const start = new Date(`${startDate}T00:00:00`);
+  const now = new Date();
+  const months = (now.getFullYear() - start.getFullYear()) * 12 + now.getMonth() - start.getMonth();
+  return `${months} ${months === 1 ? "month" : "months"}`;
+}
+
 export default function Portfolio() {
   return <>
     <a className="skip-link" href="#main">Skip to content</a>
     <Navbar />
     <main id="main">
       <section id="home" className="hero section-wrap">
-        <p className="section-label">&gt; portfolio.init — Pune, India</p>
+        <p className="section-label">Pune, India</p>
         <h1>{PROFILE.name}<span className="accent">.</span></h1>
         <p className="hero-role">{PROFILE.headline}</p>
         <p className="hero-summary">{PROFILE.summary}</p>
@@ -39,38 +74,42 @@ export default function Portfolio() {
       </section>
 
       <section id="about" className="section-wrap">
-        <p className="section-label">&gt; about.md</p><h2 className="section-title">About</h2>
-        <p className="prose">{PROFILE.about}</p>
+        <h2 className="section-title">About</h2>
+        <div className="about-layout">
+          <Image className="portrait" src={PROFILE.photoUrl} alt="Portrait of Aditya Thodsare" width={467} height={535} sizes="(max-width: 700px) 70vw, 280px" />
+          <p className="prose">{PROFILE.about}</p>
+        </div>
       </section>
 
       <section id="experience" className="section-wrap">
-        <p className="section-label">&gt; experience.log</p><h2 className="section-title">Experience & education</h2>
+        <h2 className="section-title">Experience</h2>
         {PROFILE.experience.map((item) => <article className="card" key={item.company + item.title}>
-          <div className="card-heading"><div><h3>{item.title}</h3><p className="muted">{item.company}</p></div><time>{item.period}</time></div>
+          <div className="card-heading"><div><h3>{item.title}</h3><p className="muted">{item.company} · Pune, India</p></div><time>{item.period}{item.periodStart && <span className="duration">{monthDuration(item.periodStart)}</span>}</time></div>
           <ul>{item.details.map((detail) => <li key={detail}>{detail}</li>)}</ul>
         </article>)}
-        <article className="card"><div className="card-heading"><div><h3>{PROFILE.education.degree}</h3><p className="muted">{PROFILE.education.institution}</p></div><time>{PROFILE.education.period}</time></div><p>{PROFILE.education.location} · CGPA {PROFILE.education.cgpa}</p></article>
-        {PROFILE.needsConfirmation.filter((item) => item.startsWith("Testrig dates")).map((item) => <p className="confirmation" key={item}>Date to confirm: {item}</p>)}
+        <h2 className="section-title education-title">Education</h2>
+        <article className="card"><div className="card-heading"><div><h3>{PROFILE.education.degree}</h3><p className="muted">{PROFILE.education.institution}</p></div><time>{PROFILE.education.period}</time></div><p>{PROFILE.education.description}</p><p><strong>CGPA:</strong> {PROFILE.education.cgpa}</p></article>
+        {PROFILE.education.earlierEducation.map((item) => <article className="card education-card" key={item.qualification}><div className="card-heading"><div><h3>{item.qualification}</h3><p className="muted">{item.institution}</p></div><time>{item.period}</time></div><p><strong>Result:</strong> {item.result}</p></article>)}
       </section>
 
       <section id="projects" className="section-wrap">
-        <p className="section-label">&gt; projects/</p><h2 className="section-title">Selected projects</h2>
+        <h2 className="section-title">Projects</h2>
         <div className="project-grid">{PROFILE.projects.map((project) => <article className="card project-card" key={project.id}>
           {project.image && <Image src={project.image} alt={project.imageAlt} width={760} height={420} sizes="(max-width: 760px) 100vw, 50vw" />}
           <h3>{project.title}</h3><p className="muted">{project.problem}</p><p>{project.contribution}</p><p><strong>Evidence:</strong> {project.evidence}</p>
           <ul className="chips">{project.stack.map((tech) => <li key={tech}>{tech}</li>)}</ul>
-          <div className="link-row">{project.links.map((link) => <a key={link.href} href={link.href} target="_blank" rel="noreferrer">{link.label} ↗</a>)}</div>
+          <div className="link-row">{project.links.map((link) => <a key={link.href} href={link.href} target="_blank" rel="noreferrer"><ServiceIcon href={link.href} /> {link.label}</a>)}</div>
         </article>)}</div>
       </section>
 
       <section id="skills" className="section-wrap">
-        <p className="section-label">&gt; skills.json</p><h2 className="section-title">Skills</h2>
-        <p className="muted">Used in projects and work</p><div className="skill-grid">{PROFILE.skills.map((group) => <article className="card" key={group.group}><h3>{group.group}</h3><p>{group.items.join(" · ")}</p></article>)}</div>
-        <h3>Certifications</h3><ul>{PROFILE.certifications.map((item) => <li key={item}>{item}</li>)}</ul>
+        <h2 className="section-title">Skills</h2>
+        <p className="muted">Used in projects and work</p>
+        <div className="skill-grid">{PROFILE.skills.map((group) => <article className="card skill-card" key={group.group}><h3>{group.group}</h3><ul className="skill-list">{group.items.map((skill) => { const Icon = technologyIcons[skill]; return <li key={skill}>{Icon && <Icon aria-hidden="true" />}<span>{skill}</span></li>; })}</ul></article>)}</div>
       </section>
       <ContactSection />
     </main>
-    <footer className="footer"><p>{PROFILE.name} · © {new Date().getFullYear()}</p><div className="link-row"><a href={PROFILE.github}>GitHub</a><a href={PROFILE.linkedin}>LinkedIn</a><a href={`mailto:${PROFILE.email}`}>Email</a><a href="#home">Back to top ↑</a></div></footer>
+    <footer className="footer"><p>{PROFILE.name} · © {new Date().getFullYear()}</p><div className="link-row"><a href={PROFILE.github}><FaGithub aria-hidden="true" /> GitHub</a><a href={PROFILE.linkedin}><FaLinkedin aria-hidden="true" /> LinkedIn</a><a href={`mailto:${PROFILE.email}`}><FaEnvelope aria-hidden="true" /> Email</a><a href="#home">Back to top ↑</a></div></footer>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema).replace(/</g, "\\u003c") }} />
   </>;
 }

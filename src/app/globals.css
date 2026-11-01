@@ -649,6 +649,11 @@ h3 { font-size: 1.15rem; font-weight: 600; margin-bottom: 4px; }
   flex-wrap: wrap;
   font-size: 0.875rem;
 }
+.resume-click-count {
+  color: var(--muted);
+  font: 12px var(--font-mono);
+  opacity: 0.75;
+}
 .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
 .footer-links a {
   display: inline-flex;

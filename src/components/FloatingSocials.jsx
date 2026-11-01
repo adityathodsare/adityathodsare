@@ -1,8 +1,28 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { FiFileText, FiMail } from "react-icons/fi";
 import { PROFILE } from "@/lib/profile";
+import { recordResumeClick } from "@/lib/resumeClicks";
 
 export default function FloatingSocials() {
+  const [projectsVisible, setProjectsVisible] = useState(false);
+
+  useEffect(() => {
+    const projectsSection = document.getElementById("projects");
+    if (!projectsSection || typeof IntersectionObserver === "undefined") return;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      setProjectsVisible(entry.isIntersecting);
+    });
+
+    observer.observe(projectsSection);
+    return () => observer.disconnect();
+  }, []);
+
+  if (projectsVisible) return null;
+
   return (
     <nav className="floating-socials" aria-label="Social and contact links">
       <a
@@ -36,6 +56,7 @@ export default function FloatingSocials() {
         href={PROFILE.resumeUrl}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={recordResumeClick}
         aria-label="Open Aditya's resume (opens in a new tab)"
         title="Resume"
       >

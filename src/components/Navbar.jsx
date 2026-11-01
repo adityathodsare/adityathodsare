@@ -1,123 +1,97 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { FiMenu, FiX } from "react-icons/fi";
-import { cn } from "./ui/BrutalUI"; // Or whatever is needed
+import { useEffect, useRef, useState } from "react";
 
-const NAV = [
-  { id: "about", label: "ABOUT" },
-  { id: "skills", label: "SKILLS" },
-  { id: "experience", label: "LOGS" },
-  { id: "projects", label: "WORK" },
-];
+const links = ["about", "experience", "projects", "skills", "education", "contact"];
 
-export default function Navbar({ activeSection, handleNavClick }) {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
+
+export default function Navbar() {
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("");
+  const menuRef = useRef(null);
+  const triggerRef = useRef(null);
 
   useEffect(() => {
-    document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [mobileMenuOpen]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const winScroll =
-        document.body.scrollTop || document.documentElement.scrollTop;
-      const height =
-        document.documentElement.scrollHeight -
-        document.documentElement.clientHeight;
-      const scrolled = (winScroll / height) * 100;
-      setScrollProgress(scrolled);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) setActive(visible.target.id);
+      },
+      { rootMargin: "-20% 0px -60% 0px" }
+    );
+    links.forEach((id) => {
+      const section = document.getElementById(id);
+      if (section) observer.observe(section);
+    });
+    return () => observer.disconnect();
   }, []);
 
-  const handleMobileNavClick = (id) => {
-    handleNavClick(id);
-    setMobileMenuOpen(false);
-  };
+  useEffect(() => {
+    if (!open) return;
+    const menu = menuRef.current;
+    const items = menu?.querySelectorAll("a");
+    items?.[0]?.focus();
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+        triggerRef.current?.focus();
+      }
+      if (event.key === "Tab" && items?.length) {
+        if (event.shiftKey && document.activeElement === items[0]) {
+          event.preventDefault();
+          items[items.length - 1].focus();
+        } else if (
+          !event.shiftKey &&
+          document.activeElement === items[items.length - 1]
+        ) {
+          event.preventDefault();
+          items[0].focus();
+        }
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [open]);
+
+  const close = () => setOpen(false);
 
   return (
-    <>
-      <div
-        className="fixed top-0 left-0 h-2 bg-[var(--color-neo-green)] z-[60] border-b-2 border-black"
-        style={{ width: `${scrollProgress}%` }}
-      />
-
-      <nav className="fixed top-0 w-full z-50 px-4 py-4 pointer-events-none">
-        <div className="max-w-7xl mx-auto flex justify-between items-center pointer-events-auto">
-          <button
-            onClick={() => handleNavClick("home")}
-            className="bg-[var(--color-neo-white)] border-2 border-black px-4 py-1 text-2xl font-black brutal-shadow hover:bg-[var(--color-neo-yellow)] transition-all hover:translate-x-1 hover:translate-y-1 hover:shadow-none cursor-hover font-display"
-          >
-            Aditya Thodsare
-          </button>
-
-          <div className="hidden md:flex gap-4 bg-white border-2 border-black p-2 brutal-shadow">
-            {NAV.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => handleNavClick(item.id)}
-                className={cn(
-                  "px-3 py-1 font-mono font-bold text-sm transition-colors cursor-hover",
-                  activeSection === item.id
-                    ? "bg-black text-white"
-                    : "hover:bg-black hover:text-white",
-                )}
-              >
-                {item.label}
-              </button>
-            ))}
-            <button
-              onClick={() => handleNavClick("contact")}
-              className="px-3 py-1 font-mono font-bold text-sm bg-[var(--color-neo-yellow)] border border-black hover:bg-[var(--color-neo-pink)] transition-colors cursor-hover"
+    <header className="site-header">
+      <nav aria-label="Main navigation" className="nav-inner">
+        <a className="brand" href="#home" onClick={close}>
+          AT<span>.</span>
+        </a>
+        <button
+          ref={triggerRef}
+          className="menu-toggle"
+          aria-expanded={open}
+          aria-controls="site-menu"
+          aria-label={open ? "Close navigation menu" : "Open navigation menu"}
+          onClick={() => setOpen(!open)}
+        >
+          {open ? "Close" : "Menu"}
+        </button>
+        <div
+          ref={menuRef}
+          id="site-menu"
+          className={`nav-links${open ? " is-open" : ""}`}
+          role="list"
+        >
+          {links.map((id) => (
+            <a
+              key={id}
+              href={`#${id}`}
+              aria-current={active === id ? "location" : undefined}
+              onClick={close}
+              role="listitem"
             >
-              HIRE ME
-            </button>
-          </div>
-
-          {/* Mobile hamburger */}
-          <button
-            type="button"
-            className="md:hidden bg-white border-2 border-black p-2 brutal-shadow cursor-hover"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {mobileMenuOpen ? (
-              <FiX className="h-6 w-6" />
-            ) : (
-              <FiMenu className="h-6 w-6" />
-            )}
-          </button>
+              {id[0].toUpperCase() + id.slice(1)}
+            </a>
+          ))}
         </div>
-
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="pointer-events-auto absolute top-full left-0 w-full mt-4 px-4 md:hidden">
-            <div className="bg-white border-4 border-black brutal-shadow p-4 flex flex-col gap-2">
-              {NAV.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => handleMobileNavClick(item.id)}
-                  className="font-mono text-left px-4 py-3 text-base font-bold border-2 border-transparent hover:border-black hover:bg-[var(--color-neo-yellow)] transition-all"
-                >
-                  {item.label}
-                </button>
-              ))}
-              <button
-                onClick={() => handleMobileNavClick("contact")}
-                className="font-mono text-left px-4 py-3 text-base font-bold bg-[var(--color-neo-yellow)] border-2 border-black hover:bg-[var(--color-neo-pink)] transition-all"
-              >
-                HIRE ME
-              </button>
-            </div>
-          </div>
-        )}
       </nav>
-    </>
+    </header>
   );
 }

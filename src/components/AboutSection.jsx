@@ -152,7 +152,7 @@ export default function AboutSection() {
               I specialize in backend microservices using Spring Boot, modern frontend experiences in React & Next.js, and autonomous workflow automation using AI with n8n and Make.com.
               <br />
               <br />
-              I also build IoT-powered platforms (like SAFE-V) demonstrating real-time monitoring and event-driven architecture.
+              I also build IoT-powered platforms (like SAFE-V.ai) demonstrating real-time monitoring and event-driven architecture.
             </p>
 
             <p className="font-mono text-lg mb-8 text-gray-600 border-l-4 border-[var(--color-neo-purple)] pl-4 space-y-1">

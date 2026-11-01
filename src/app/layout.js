@@ -1,35 +1,54 @@
 import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import CustomCursor from "@/components/CustomCursor";
-import { Analytics } from "@vercel/analytics/next";
+import FloatingSocials from "@/components/FloatingSocials";
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-});
+const sans = Space_Grotesk({ variable: "--font-sans", subsets: ["latin"] });
+const mono = JetBrains_Mono({ variable: "--font-mono", subsets: ["latin"] });
 
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
-  weight: ["400", "700", "800"],
-});
+const title = "Aditya Thodsare | Full Stack Developer (Java, Spring Boot, Next.js) in Pune";
+const description =
+  "Aditya Thodsare is a full stack developer in Pune building Java Spring Boot microservices, Next.js apps, AI-powered dashboards and IoT systems.";
+const canonical = "https://adityathodsare.vercel.app/";
 
 export const metadata = {
-  title: "Aditya Thodsare | Full Stack MERN Developer",
-  description:
-    "Full Stack MERN Developer specializing in scalable web applications using React, Node.js, Express, MongoDB, and modern frontend tools.",
+  metadataBase: new URL(canonical),
+  title,
+  description,
+  alternates: { canonical },
+  robots: { index: true, follow: true },
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    url: canonical,
+    title,
+    description,
+    siteName: "Aditya Thodsare",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Aditya Thodsare — Full Stack Developer",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: ["/opengraph-image"],
+  },
+  icons: { icon: "/favicon.ico", apple: "/apple-icon" },
 };
+
+export const viewport = { themeColor: "#101411" };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body
-        className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} antialiased`}
-      >
-        <CustomCursor />
+    <html lang="en" className={`${sans.variable} ${mono.variable}`}>
+      <body>
         {children}
-        <Analytics />
+        <FloatingSocials />
       </body>
     </html>
   );
